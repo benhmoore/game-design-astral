@@ -1,3 +1,10 @@
-[gd_scene format=2]
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://assets/graphics/levels/free.png" type="Texture" id=1]
 
 [node name="Node2D" type="Node2D"]
+
+[node name="Free" type="Sprite" parent="."]
+position = Vector2( 296, 124 )
+scale = Vector2( 2.56875, 2.56875 )
+texture = ExtResource( 1 )
