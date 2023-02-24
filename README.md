@@ -3,7 +3,7 @@
 ___
 
 ## Installation
-1. Ensure you are running `Godot 3.5.1`
+1. Ensure you are running `Godot 3.5.1` (not .NET)
 2. Clone the repository
 3. Import `project.godot` into Godot
 
