@@ -4,7 +4,7 @@
 
 [node name="Node2D" type="Node2D"]
 
-[node name="Free" type="Sprite" parent="."]
+[node name="TestSprite" type="Sprite" parent="."]
 position = Vector2( 296, 124 )
 scale = Vector2( 2.56875, 2.56875 )
 texture = ExtResource( 1 )
