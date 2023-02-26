@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scenes/player/PlayerCharacter.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/shaders/CrtShader.tres" type="Material" id=2]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="TextureRect" type="ColorRect" parent="CanvasLayer"]
+material = ExtResource( 2 )
+margin_right = 1920.0
+margin_bottom = 1080.0
+mouse_default_cursor_shape = 3
+
+[node name="PlayerCharacter" parent="." instance=ExtResource( 1 )]
+position = Vector2( 1048, 546 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_right = 1920.0
+margin_bottom = 1080.0
+color = Color( 0.603922, 0.439216, 0.254902, 1 )

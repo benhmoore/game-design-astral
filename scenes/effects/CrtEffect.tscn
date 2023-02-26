@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://assets/shaders/CrtShader.tres" type="Material" id=1]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+margin_right = 645.0
+margin_bottom = 365.0
+color = Color( 0.513726, 0.447059, 0.270588, 1 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = ExtResource( 1 )
+margin_right = 645.0
+margin_bottom = 365.0
