@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://assets/graphics/player/idle/priest1_v1_2.png" type="Texture" id=1]
 [ext_resource path="res://assets/graphics/player/idle/priest1_v1_3.png" type="Texture" id=2]
@@ -6,6 +6,9 @@
 [ext_resource path="res://assets/graphics/player/idle/priest1_v1_1.png" type="Texture" id=4]
 [ext_resource path="res://scripts/player/PlayerCharacter.gd" type="Script" id=5]
 [ext_resource path="res://scenes/projectiles/Projectile.tscn" type="PackedScene" id=6]
+[ext_resource path="res://assets/sounds/shoot_1.wav" type="AudioStream" id=7]
+[ext_resource path="res://assets/sounds/walk_1.wav" type="AudioStream" id=8]
+[ext_resource path="res://scenes/Camera.tscn" type="PackedScene" id=9]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 7.0
@@ -26,6 +29,8 @@ collision_mask = 2147483648
 script = ExtResource( 5 )
 projectile_scene = ExtResource( 6 )
 
+[node name="Camera2D" parent="." instance=ExtResource( 9 )]
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( -0.333333, -0.333333 )
 shape = SubResource( 1 )
@@ -33,5 +38,13 @@ shape = SubResource( 1 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 2 )
 animation = "player.idle"
-frame = 2
+frame = 1
 playing = true
+
+[node name="ShootAudioPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 7 )
+
+[node name="FootstepsAudioPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 8 )
+volume_db = -16.807
+pitch_scale = 0.87

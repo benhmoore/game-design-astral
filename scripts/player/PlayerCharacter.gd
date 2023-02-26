@@ -1,10 +1,13 @@
 extends KinematicBody2D
 
-export var max_speed = 150
-export var acceleration = 1500
+export var max_speed = 300
+export var acceleration = 2000
 export var projectile_scene: PackedScene
 export var knockback_force = 250
-export var friction = 2000
+export var friction = 1750
+
+onready var shoot_audio_player = get_node("ShootAudioPlayer")
+onready var footsteps_audio_player = get_node("FootstepsAudioPlayer")
 
 var motion = Vector2.ZERO
 
@@ -20,8 +23,6 @@ func _physics_process(delta):
 	# If the player is not holding down a movement key and is not experiencing knockback, gradually slow them down with friction
 	if input_vector == Vector2.ZERO:
 		var friction_force = motion.normalized() * friction * delta
-		print("friction_force: ", friction_force.length())
-		print("motion: ", motion.length())
 		if friction_force.length() > motion.length():
 			new_motion = Vector2.ZERO
 		else:
@@ -32,11 +33,18 @@ func _physics_process(delta):
 		motion = Vector2.ZERO
 	else:
 		motion = new_motion
+		
+	if motion != Vector2.ZERO:
+		if not footsteps_audio_player.playing:
+			footsteps_audio_player.play()
+	else:
+		footsteps_audio_player.stop()
 
 	if Input.is_action_just_pressed("action_shoot"):
 		var projectile_direction = global_position.direction_to(get_global_mouse_position())
-		shoot(projectile_direction)
-		knockback(projectile_direction)
+		var deviation_angle = rand_range(-0.05, 0.05)  # choose a random deviation angle
+		shoot(projectile_direction, deviation_angle)
+		knockback(projectile_direction, deviation_angle)
 
 func get_input_vector():
 	var input_vector = Vector2.ZERO
@@ -54,13 +62,25 @@ func get_input_vector():
 	# Normalize the input vector to ensure that diagonal movement is not faster than horizontal/vertical movement
 	return input_vector.normalized()
 
-func shoot(projectile_dir: Vector2 = Vector2.ZERO):
+func shoot(projectile_dir: Vector2 = Vector2.ZERO, deviation_angle = 0):
 	var projectile = projectile_scene.instance()
 	get_tree().current_scene.add_child(projectile)
 	projectile.global_position = global_position
 
-	var projectile_rot = projectile_dir.angle()
+	var projectile_rot = projectile_dir.angle() + deviation_angle
 	projectile.rotation = projectile_rot
+	
+	# Load and play the sound effect
+	shoot_audio_player.pitch_scale = rand_range(1.2, 1.4)
+	shoot_audio_player.play()
+	
+	# Shake the camera
+	var camera = get_node("Camera2D")
+	# camera.shake()
+	camera.flash_screen()
 
-func knockback(projectile_dir: Vector2 = Vector2.ZERO):
-	motion += -projectile_dir * knockback_force
+
+func knockback(projectile_dir: Vector2 = Vector2.ZERO, deviation_angle: float = 0):
+	var knockback_dir = projectile_dir.rotated(deviation_angle)  # apply deviation to projectile direction
+	motion += -knockback_dir * knockback_force
+
