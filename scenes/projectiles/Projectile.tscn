@@ -1,22 +1,36 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scripts/projectiles/Projectile.gd" type="Script" id=1]
-[ext_resource path="res://assets/graphics/projectiles/coin_1.png" type="Texture" id=2]
+[ext_resource path="res://assets/graphics/projectiles/projectile_laser_animation.tres" type="SpriteFrames" id=2]
+[ext_resource path="res://scenes/projectiles/ImpactParticles.tscn" type="PackedScene" id=3]
 
-[sub_resource type="CircleShape2D" id=1]
-radius = 11.5109
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 4.5
+height = 12.0
 
 [node name="Projectile" type="Area2D" groups=["Projectile"]]
-scale = Vector2( 2.5, 0.8 )
+scale = Vector2( 2, 2 )
 script = ExtResource( 1 )
-
-[node name="Sprite" type="Sprite" parent="."]
-texture = ExtResource( 2 )
+SPEED = 1250
+hit_particles = ExtResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
 shape = SubResource( 1 )
 
 [node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
+
+[node name="FlyAnimation" type="AnimatedSprite" parent="."]
+frames = ExtResource( 2 )
+animation = "projectile.laser"
+playing = true
+
+[node name="HitAnimation" type="AnimatedSprite" parent="."]
+visible = false
+frames = ExtResource( 2 )
+animation = "projectile.laser.hit"
+frame = 2
+playing = true
 
 [connection signal="body_entered" from="." to="." method="_on_Projectile_body_entered"]
 [connection signal="viewport_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_viewport_exited"]

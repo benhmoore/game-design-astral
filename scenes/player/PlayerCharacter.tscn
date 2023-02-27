@@ -8,7 +8,7 @@
 [ext_resource path="res://scenes/projectiles/Projectile.tscn" type="PackedScene" id=6]
 [ext_resource path="res://assets/sounds/shoot_1.wav" type="AudioStream" id=7]
 [ext_resource path="res://assets/sounds/walk_1.wav" type="AudioStream" id=8]
-[ext_resource path="res://scenes/Camera.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scenes/player/Camera.tscn" type="PackedScene" id=9]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 7.0
@@ -38,7 +38,6 @@ shape = SubResource( 1 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 2 )
 animation = "player.idle"
-frame = 1
 playing = true
 
 [node name="ShootAudioPlayer" type="AudioStreamPlayer2D" parent="."]

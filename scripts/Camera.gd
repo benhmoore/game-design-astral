@@ -5,10 +5,12 @@ var shake_intensity = 1.5
 var shake_speed = 50.0
 
 export var follow_speed: float = 0.5
-export var zoom_speed: float = 1.0
-export var max_zoom: float = 1.1
+export var zoom_speed: float = 0.3
+export var max_zoom: float = 1.3
 export var min_zoom: float = 1.0
 export var zoom_border: float = 400.0
+
+var should_recenter_camera = false
 
 onready var player: KinematicBody2D = get_node("/root/Node2D/PlayerCharacter")
 onready var flash: ColorRect = $ColorRect
@@ -69,10 +71,21 @@ func _process(delta):
 
 			# Set the new zoom level
 			zoom = current_zoom
+			should_recenter_camera = false
 		else:
 			# Set the zoom level to the default value when the player is not moving
 			current_zoom = current_zoom.linear_interpolate(Vector2(min_zoom, min_zoom), delta * zoom_speed)
 			zoom = current_zoom
+			if not should_recenter_camera:
+				should_recenter_camera = true
+
+	# Recenter the camera on the player if necessary
+	if should_recenter_camera:
+		var target_position = player.global_position + Vector2(150, 0)
+		var current_position = global_position
+		if (target_position - current_position).length() > 1:
+			global_position = current_position.linear_interpolate(target_position, delta * follow_speed * 4.0)
+
 
 func set_following_player(follow: bool):
 	following_player = follow
