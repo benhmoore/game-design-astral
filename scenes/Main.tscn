@@ -1,10 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scenes/player/PlayerCharacter.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/shaders/CrtShader.tres" type="Material" id=2]
 [ext_resource path="res://scenes/environment/Wall.tscn" type="PackedScene" id=3]
 [ext_resource path="res://assets/music/astral-sound.wav" type="AudioStream" id=4]
-[ext_resource path="res://assets/graphics/player/idle_v2/Character_sprites.png" type="Texture" id=5]
 
 [node name="Node2D" type="Node2D"]
 
@@ -26,12 +25,7 @@ position = Vector2( 1048, 546 )
 [node name="ColorRect" type="ColorRect" parent="."]
 margin_right = 1920.0
 margin_bottom = 1080.0
-color = Color( 0.188235, 0.0980392, 0.34902, 1 )
+color = Color( 0.317647, 0.2, 0.0941176, 1 )
 
 [node name="WallBlock" parent="." instance=ExtResource( 3 )]
 position = Vector2( 1497, 670 )
-
-[node name="CharacterSprites" type="Sprite" parent="."]
-position = Vector2( 1239, 1076 )
-scale = Vector2( 3.68125, 3.70733 )
-texture = ExtResource( 5 )

@@ -3,7 +3,7 @@ extends KinematicBody2D
 export var max_speed = 300
 export var acceleration = 2000
 export var projectile_scene: PackedScene
-export var knockback_force = 250
+export var knockback_force = 175
 export var friction = 1750
 
 onready var shoot_audio_player = get_node("ShootAudioPlayer")
@@ -13,6 +13,22 @@ var motion = Vector2.ZERO
 
 func _physics_process(delta):
 	var input_vector = get_input_vector()
+	var mouse_position = get_global_mouse_position()
+	var mouse_direction = global_position.direction_to(get_global_mouse_position())
+	var sprite_animation = "idle.front.right"
+	
+	# Determine which sprite to use based on distance from the player to the mouse position
+	var distance = global_position.distance_to(mouse_position)
+	if distance > 64:
+		sprite_animation = "idle.back.right" if mouse_position.y < global_position.y else "idle.front.right"
+		if mouse_position.x < global_position.x:
+			sprite_animation = sprite_animation.replace(".right", ".left")
+	else:
+		sprite_animation = "idle.front.right" if mouse_position.x > global_position.x else "idle.front.left"
+	
+	# Set the sprite animation based on the distance from the player to the mouse position
+	var animated_sprite = get_node("DamageEffect/AnimatedSprite")
+	animated_sprite.animation = sprite_animation
 	
 	# Calculate the player's new motion based on input and acceleration
 	var new_motion = motion
@@ -41,10 +57,11 @@ func _physics_process(delta):
 		footsteps_audio_player.stop()
 
 	if Input.is_action_just_pressed("action_shoot"):
-		var projectile_direction = global_position.direction_to(get_global_mouse_position())
+		var projectile_direction = mouse_direction
 		var deviation_angle = rand_range(-0.05, 0.05)  # choose a random deviation angle
 		shoot(projectile_direction, deviation_angle)
 		knockback(projectile_direction, deviation_angle)
+
 
 func get_input_vector():
 	var input_vector = Vector2.ZERO
@@ -78,7 +95,13 @@ func shoot(projectile_dir: Vector2 = Vector2.ZERO, deviation_angle = 0):
 	var camera = get_node("Camera2D")
 	# camera.shake()
 	camera.flash_screen()
-
+	
+func damage():
+	var damage_effect = get_node("DamageEffect")
+	damage_effect.modulate = Color(1, 0, 0, 1)
+	yield(get_tree().create_timer(0.1), "timeout")
+	damage_effect.modulate = Color(1, 1, 1, 1)
+	
 
 func knockback(projectile_dir: Vector2 = Vector2.ZERO, deviation_angle: float = 0):
 	var knockback_dir = projectile_dir.rotated(deviation_angle)  # apply deviation to projectile direction
