@@ -1,5 +1,6 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=22 format=2]
 
+[ext_resource path="res://assets/shaders/OutlineShader.tres" type="Material" id=1]
 [ext_resource path="res://scripts/player/PlayerCharacter.gd" type="Script" id=5]
 [ext_resource path="res://scenes/projectiles/Projectile.tscn" type="PackedScene" id=6]
 [ext_resource path="res://assets/sounds/shoot_1.wav" type="AudioStream" id=7]
@@ -111,10 +112,10 @@ margin_right = 25.0
 margin_bottom = 25.0
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="DamageEffect"]
+material = ExtResource( 1 )
 position = Vector2( 25.6667, 26 )
-scale = Vector2( 1, 1 )
 frames = SubResource( 2 )
 animation = "idle.front.right"
-frame = 2
+frame = 1
 speed_scale = 0.8
 playing = true
