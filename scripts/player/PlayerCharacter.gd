@@ -27,7 +27,7 @@ func _physics_process(delta):
 		sprite_animation = "idle.front.right" if mouse_position.x > global_position.x else "idle.front.left"
 	
 	# Set the sprite animation based on the distance from the player to the mouse position
-	var animated_sprite = $AnimatedSprite
+	var animated_sprite = get_node("DamageEffect/AnimatedSprite")
 	animated_sprite.animation = sprite_animation
 	
 	# Calculate the player's new motion based on input and acceleration
@@ -95,7 +95,13 @@ func shoot(projectile_dir: Vector2 = Vector2.ZERO, deviation_angle = 0):
 	var camera = get_node("Camera2D")
 	# camera.shake()
 	camera.flash_screen()
-
+	
+func damage():
+	var damage_effect = get_node("DamageEffect")
+	damage_effect.modulate = Color(1, 0, 0, 1)
+	yield(get_tree().create_timer(0.1), "timeout")
+	damage_effect.modulate = Color(1, 1, 1, 1)
+	
 
 func knockback(projectile_dir: Vector2 = Vector2.ZERO, deviation_angle: float = 0):
 	var knockback_dir = projectile_dir.rotated(deviation_angle)  # apply deviation to projectile direction

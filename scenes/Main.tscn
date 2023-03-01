@@ -25,7 +25,7 @@ position = Vector2( 1048, 546 )
 [node name="ColorRect" type="ColorRect" parent="."]
 margin_right = 1920.0
 margin_bottom = 1080.0
-color = Color( 0.188235, 0.0980392, 0.34902, 1 )
+color = Color( 0.317647, 0.2, 0.0941176, 1 )
 
 [node name="WallBlock" parent="." instance=ExtResource( 3 )]
 position = Vector2( 1497, 670 )
