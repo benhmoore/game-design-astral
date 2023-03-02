@@ -5,11 +5,12 @@
 [ext_resource path="res://scenes/environment/Wall.tscn" type="PackedScene" id=3]
 [ext_resource path="res://assets/music/astral-sound.wav" type="AudioStream" id=4]
 
-[node name="Node2D" type="Node2D"]
+[node name="Node2D" type="YSort"]
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 4 )
 volume_db = -16.314
+autoplay = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -18,6 +19,9 @@ material = ExtResource( 2 )
 margin_right = 1920.0
 margin_bottom = 1080.0
 mouse_default_cursor_shape = 3
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="PlayerCharacter" parent="." instance=ExtResource( 1 )]
 position = Vector2( 1048, 546 )
@@ -25,7 +29,21 @@ position = Vector2( 1048, 546 )
 [node name="ColorRect" type="ColorRect" parent="."]
 margin_right = 1920.0
 margin_bottom = 1080.0
+rect_scale = Vector2( 1.00088, 1 )
 color = Color( 0.776471, 0.521569, 0.294118, 1 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="WallBlock" parent="." instance=ExtResource( 3 )]
 position = Vector2( 1497, 670 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+modulate = Color( 0.266667, 0.129412, 0.129412, 1 )
+scale = Vector2( 1.00038, 0.995448 )
+polygon = PoolVector2Array( 672, 258, 538, 258, 536, 432, 559, 736, 742, 828, 952, 773, 1080, 923, 1506, 1024, 1638, 805, 1757, 590, 1655, 173, 1442, 22, 1095, 264, 909, 131, 1442, 9, 1748, 157, 1837, 668, 1523, 1056, 1073, 1017, 431, 862, 450, 226, 647, 170 )
