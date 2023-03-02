@@ -9,8 +9,8 @@
 [ext_resource path="res://assets/graphics/player/outcast_sprites.png" type="Texture" id=10]
 
 [sub_resource type="CapsuleShape2D" id=1]
-radius = 11.0
-height = 14.6667
+radius = 4.14509
+height = 24.1582
 
 [sub_resource type="AtlasTexture" id=6]
 atlas = ExtResource( 10 )
@@ -92,8 +92,9 @@ projectile_scene = ExtResource( 6 )
 
 [node name="Camera2D" parent="." instance=ExtResource( 9 )]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( -0.333333, -0.333333 )
+[node name="Feet_CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 10 )
+scale = Vector2( 1.25357, 0.344821 )
 shape = SubResource( 1 )
 
 [node name="ShootAudioPlayer" type="AudioStreamPlayer2D" parent="."]
@@ -116,6 +117,5 @@ material = ExtResource( 1 )
 position = Vector2( 25.6667, 26 )
 frames = SubResource( 2 )
 animation = "idle.front.right"
-frame = 1
 speed_scale = 0.8
 playing = true
