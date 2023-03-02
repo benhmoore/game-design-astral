@@ -67,8 +67,8 @@ void fragment() {
 [resource]
 render_priority = 1
 shader = SubResource( 1 )
-shader_param/color = Color( 0, 0, 0, 0.462745 )
-shader_param/width = 0.307
+shader_param/color = Color( 0, 0, 0, 0.623529 )
+shader_param/width = 1.0
 shader_param/pattern = 0
 shader_param/inside = true
 shader_param/add_margins = true
