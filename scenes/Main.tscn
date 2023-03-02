@@ -54,7 +54,7 @@ z_index = -1
 tile_set = ExtResource( 5 )
 cell_size = Vector2( 16, 16 )
 format = 1
-tile_data = PoolIntArray( -65531, 57, 0 )
+tile_data = PoolIntArray( -65531, 57, 0, 9, 18, 0, 65538, 18, 0, 65540, 18, 0, 65547, 34, 0, 65548, 18, 0, 131082, 18, 0, 196611, 18, 0, 196613, 35, 0, 196617, 35, 0, 196620, 34, 0, 262146, 18, 0, 262148, 10, 0, 262149, 6, 0, 262150, 14, 0, 262152, 7, 0, 262153, 9, 0, 262154, 18, 0, 262156, 34, 0, 327683, 59, 0, 327684, 59, 0, 327685, 59, 0, 327686, 59, 0, 327688, 59, 0, 327689, 59, 0, 327690, 59, 0 )
 
 [node name="AboveFloor" type="TileMap" parent="Tile Maps"]
 scale = Vector2( 2.5, 2.5 )
@@ -63,3 +63,9 @@ tile_set = ExtResource( 5 )
 cell_size = Vector2( 16, 16 )
 format = 1
 tile_data = PoolIntArray( 262176, 35, 0 )
+
+[node name="Colliders" type="StaticBody2D" parent="Tile Maps"]
+visible = false
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Tile Maps/Colliders"]
+polygon = PoolVector2Array( 139, 115, 188, 248, 157, 377, 176, 387, 444, 386, 440, 253, 522, 256, 517, 389, 731, 376, 743, 322, 821, 313, 808, 261, 829, 235, 802, 205, 856, 189, 892, 145, 899, 79, 725, 78, 608, 59, 477, 18, 353, 68 )
