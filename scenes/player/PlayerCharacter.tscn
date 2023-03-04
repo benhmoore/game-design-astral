@@ -1,7 +1,8 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://assets/shaders/OutlineShader.tres" type="Material" id=1]
 [ext_resource path="res://assets/sounds/battery_collect.wav" type="AudioStream" id=2]
+[ext_resource path="res://assets/sounds/alert_2.wav" type="AudioStream" id=3]
 [ext_resource path="res://scripts/player/PlayerCharacter.gd" type="Script" id=5]
 [ext_resource path="res://scenes/projectiles/Projectile.tscn" type="PackedScene" id=6]
 [ext_resource path="res://assets/sounds/shoot_1.wav" type="AudioStream" id=7]
@@ -125,3 +126,8 @@ animation = "idle.front.right"
 frame = 2
 speed_scale = 0.8
 playing = true
+
+[node name="DangerAudioPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+volume_db = -27.105
+pitch_scale = 0.8
