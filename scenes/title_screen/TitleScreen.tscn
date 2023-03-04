@@ -7,29 +7,32 @@
 [ext_resource path="res://scenes/title_screen/title_screen.gd" type="Script" id=5]
 [ext_resource path="res://assets/graphics/logos/outcastlogo.png" type="Texture" id=6]
 
-[node name="TitleScreen" type="Control"]
+[node name="CanvasLayer" type="CanvasLayer"]
+layer = 3
+
+[node name="TitleScreen" type="Control" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 5 )
 
-[node name="Menu" type="VBoxContainer" parent="."]
+[node name="Menu" type="VBoxContainer" parent="TitleScreen"]
 margin_left = 100.0
 margin_right = 940.0
 margin_bottom = 570.0
 
-[node name="Logo" type="TextureRect" parent="Menu"]
+[node name="Logo" type="TextureRect" parent="TitleScreen/Menu"]
 margin_right = 840.0
 margin_bottom = 371.0
 texture = ExtResource( 6 )
 stretch_mode = 4
 
-[node name="CenterRow" type="HBoxContainer" parent="Menu"]
+[node name="CenterRow" type="HBoxContainer" parent="TitleScreen/Menu"]
 margin_top = 375.0
 margin_right = 840.0
 margin_bottom = 535.0
 size_flags_vertical = 3
 
-[node name="Buttons" type="VBoxContainer" parent="Menu/CenterRow"]
+[node name="Buttons" type="VBoxContainer" parent="TitleScreen/Menu/CenterRow"]
 margin_right = 840.0
 margin_bottom = 160.0
 size_flags_horizontal = 3
@@ -37,25 +40,25 @@ size_flags_vertical = 3
 custom_constants/separation = 20
 alignment = 1
 
-[node name="StartGameButton" parent="Menu/CenterRow/Buttons" instance=ExtResource( 1 )]
+[node name="StartGameButton" parent="TitleScreen/Menu/CenterRow/Buttons" instance=ExtResource( 1 )]
 margin_bottom = 30.0
 rect_min_size = Vector2( 360, 30 )
 script = ExtResource( 4 )
 scene_to_load = "res://scenes/Main.tscn"
 
-[node name="OptionsButton" parent="Menu/CenterRow/Buttons" instance=ExtResource( 2 )]
+[node name="OptionsButton" parent="TitleScreen/Menu/CenterRow/Buttons" instance=ExtResource( 2 )]
 margin_top = 50.0
 margin_bottom = 80.0
 rect_min_size = Vector2( 360, 30 )
 script = ExtResource( 4 )
 scene_to_load = "res://scenes/TitleScreen/OptionsScene.tscn"
 
-[node name="QuitGameButton" parent="Menu/CenterRow/Buttons" instance=ExtResource( 3 )]
+[node name="QuitGameButton" parent="TitleScreen/Menu/CenterRow/Buttons" instance=ExtResource( 3 )]
 margin_top = 100.0
 margin_bottom = 160.0
 script = ExtResource( 4 )
 
-[node name="VersionLabel" type="Label" parent="Menu"]
+[node name="VersionLabel" type="Label" parent="TitleScreen/Menu"]
 margin_top = 539.0
 margin_right = 840.0
 margin_bottom = 570.0
@@ -65,4 +68,4 @@ Created by Michael Hedrick, Katelyn Jett, Caleb Kirkland, Ben Moore, and Graham 
 align = 1
 valign = 2
 
-[connection signal="pressed" from="Menu/CenterRow/Buttons/QuitGameButton" to="." method="_on_QuitGameButton_pressed"]
+[connection signal="pressed" from="TitleScreen/Menu/CenterRow/Buttons/QuitGameButton" to="TitleScreen" method="_on_QuitGameButton_pressed"]
