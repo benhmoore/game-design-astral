@@ -17,10 +17,10 @@ func _process(_delta):
 		player = get_node_or_null("/root/Node2D/PlayerCharacter")
 		if player:
 			player.connect("health_changed", self, "_on_player_health_changed")
-			player.connect("current_ammo_changed", self, "_on_player_current_ammo_changed")
+			player.connect("ammo_changed", self, "_on_player_ammo_changed")
 			
 func _on_player_health_changed():
 	health_bar.value = player.health
 	
-func _on_player_current_ammo_changed():
+func _on_player_ammo_changed():
 	current_ammo_bar.value = player.current_ammo

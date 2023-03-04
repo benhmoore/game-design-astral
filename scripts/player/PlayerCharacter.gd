@@ -1,72 +1,156 @@
 extends KinematicBody2D
 
+# PlayerCharacter signals
 signal health_changed # Emitted whenever heal() or damage() is called
-signal current_ammo_changed
-signal player_death
+signal ammo_changed # Emitted whenever ammo is added or removed
+signal player_death # Emitted when the player's health reaches 0
 
+# Player movement variables
 export var max_speed = 325
 export var acceleration = 2000
-export var projectile_scene: PackedScene
-export var knockback_force = 175
 export var friction = 1750
+var is_moving = false
+var is_sprinting = false
 
-export var lives = 3
-
-export var health_increment = 1
+# Player health variables
 var health:float = 6 setget set_health
+export var lives = 3
+var low_health_timer = 0
 
+# Player emote variables
+enum emotes {
+	EXLAIM,
+	QUESTION,
+	LOVE,
+	IDLE
+}
+var current_emote = emotes.IDLE
+
+# Player shooting variables
+export var projectile_scene: PackedScene
+export var max_ammo = 10
+export var knockback_force = 175
+var current_ammo:float = 0 setget set_current_ammo
+var is_shooting = false
+var gun_recharge_timer = 0
+
+# Audio players
 onready var shoot_audio_player = get_node("ShootAudioPlayer")
 onready var footsteps_audio_player = get_node("FootstepsAudioPlayer")
 onready var effect_audio_player = get_node("EffectAudioPlayer")
 onready var danger_audio_player = get_node("DangerAudioPlayer")
 
-export var max_ammo = 10
-var current_ammo:float = 0 setget set_current_ammo
+# References to other nodes
+onready var camera = get_node("PlayerCamera")
+onready var damage_effect = get_node("DamageEffect")
+onready var emote = get_node("EmoteSprite")
 
+# Used to determine the player's current motion
 var motion = Vector2.ZERO
 
-var gun_recharge_timer = 0
-var low_health_timer = 0
+func _process(delta:float):
+	""" Updates player health and ammo. """
 
-var is_shooting = false
-
-func _process(delta):
+	# If the player's health is low, play low health sound effect
+	# and display a damage effect
 	low_health_timer += delta
 	if low_health_timer > 0.1:
-		if health < 3 and health > 0:
-			if low_health_timer >= (pow(health, 1.5) / 5):
-				#danger_audio_player.pitch_scale = max(0.5,health * 0.3)
+		if health < 3 and health > 0.1:
+			if low_health_timer >= max(0.4,(pow(health, 1.5) / 5)):
+
+				# Play the low health sound effect
 				danger_audio_player.play()
-				var damage_effect = get_node("DamageEffect")
-				damage_effect.modulate = Color(1, 0.58, 0.43,1)
-				yield(get_tree().create_timer(0.3), "timeout")
-				damage_effect.modulate = Color(1, 1, 1, 1)
+				
+				# Flash the damage effect
+				flash_low_health()
+
 				low_health_timer = 0
 				
-	# Update health or display constant damage effect
+	# If the player's health is 0, emit the player_death signal
+	# and enable the damage effect indefinitely
+	# Otherwise, gradually decrease the player's health
 	if health <= 0:
-		var damage_effect = get_node("DamageEffect")
 		damage_effect.modulate = Color(1, 0.58, 0.43,1)
 		emit_signal("player_death")
 	else:
-		set_health(health - (delta * 0.2))
+		# If the player is sprinting, decrease their health faster
+		if is_sprinting:
+			set_health(health - (delta * 0.4))
+		else:
+			set_health(health - (delta * 0.1))
+
+	# If health is 1, display exclaimation emote
+	if health <= 1:
+		emote_exclaim()
+	elif current_emote == emotes.EXLAIM:
+		emote_idle()
+
 	
+	# If the play is not shooting, and their ammo is less than 10,
+	# gradually recharge their ammo
 	if current_ammo < 10:
 		if is_shooting == false:
+			
+			# Recharge the players ammo to a maximum of 10
 			var new_ammo = min(current_ammo + (delta*15), max_ammo)
 			set_current_ammo(new_ammo)
+			if new_ammo >= 10:
+				play_sound("assets/sounds/reloaded.wav", 2)
+
+	# If the player is shooting, play the shooting sound effect,
+	# spawn a projectile, and decrease the player's ammo
+	if Input.is_action_pressed("action_shoot"):
+		var mouse_direction = global_position.direction_to(get_global_mouse_position())
+		is_shooting = true
+		if gun_recharge_timer > 1:
+			var projectile_direction = mouse_direction
+			var deviation_angle = rand_range(-0.05, 0.05)  # choose a random deviation angle
+			shoot(projectile_direction, deviation_angle)
+			gun_recharge_timer = 0
+		else:
+			gun_recharge_timer += delta * (4 + current_ammo)
+	else:
+		is_shooting = false
 		
+func flash_low_health(duration:float=0.2):
+	""" Flashes the damage effect. """
+	# Display the damage effect for 0.3 sec
+	damage_effect.modulate = Color(1, 0.58, 0.43,1)
+	yield(get_tree().create_timer(duration), "timeout") 
+	damage_effect.modulate = Color(1, 1, 1, 1)
+
+
 func set_current_ammo(new_value:float):
+	""" Sets the player's current ammo. """
 	current_ammo = new_value
-	emit_signal("current_ammo_changed")
+	emit_signal("ammo_changed")
 	
-func _physics_process(delta):
+func _physics_process(delta:float):
+	""" Updates player movement and plays the footsteps sound effect. """
+
+	# Move the player
+	calculate_movement(delta)
+	
+	# Play the footsteps sound effect if the player is moving
+	if motion != Vector2.ZERO:
+		if not footsteps_audio_player.playing:
+
+			# Increase the pitch of the footsteps sound effect if the player is sprinting
+			if is_sprinting:
+				footsteps_audio_player.pitch_scale = 1.3
+			else:
+				footsteps_audio_player.pitch_scale = 1
+			footsteps_audio_player.play()
+	else:
+		footsteps_audio_player.stop()
+
+func calculate_movement(delta:float):
+	# Get the player's input and mouse position
 	var input_vector = get_input_vector()
 	var mouse_position = get_global_mouse_position()
-	var mouse_direction = global_position.direction_to(get_global_mouse_position())
-	var sprite_animation = "idle.front.right"
-	
+
 	# Determine which sprite to use based on distance from the player to the mouse position
+	var sprite_animation = "idle.front.right"
 	var distance = global_position.distance_to(mouse_position)
 	if distance > 64:
 		sprite_animation = "idle.back.right" if mouse_position.y < global_position.y else "idle.front.right"
@@ -81,51 +165,42 @@ func _physics_process(delta):
 	
 	# Calculate the player's new motion based on input and acceleration
 	var new_motion = motion
-	var sprint_multiplier = 1
-	if Input.is_action_pressed("action_sprint"):
-		sprint_multiplier = 1.5
-		
+	
+	# If the player is holding down a movement key, accelerate them in that direction
 	if input_vector != Vector2.ZERO:
 		new_motion += input_vector.normalized() * acceleration * delta
-	new_motion = new_motion.limit_length(max_speed)
-	new_motion = new_motion * sprint_multiplier
 	
-	# If the player is not holding down a movement key and is not experiencing knockback, gradually slow them down with friction
+		# Limit the player's speed to max_speed
+		new_motion = new_motion.limit_length(max_speed)
+
+		# If the player is holding down the sprint key, increase their speed by 50%
+		var sprint_multiplier = 1
+		is_sprinting = false
+		if Input.is_action_pressed("action_sprint"):
+			sprint_multiplier = 1.5
+			is_sprinting = true
+		new_motion = new_motion * sprint_multiplier
+	
+	# If the player is not holding down a movement key 
+	# and is not experiencing knockback, 
+	# gradually slow them down with friction
 	if input_vector == Vector2.ZERO:
 		var friction_force = motion.normalized() * friction * delta
 		if friction_force.length() > motion.length():
 			new_motion = Vector2.ZERO
 		else:
 			new_motion -= friction_force
+
 	# Move the player based on their new motion
-	var collision_info = move_and_collide(motion * delta)
-	if collision_info != null:
+	if move_and_collide(motion * delta) != null:
 		motion = Vector2.ZERO
 	else:
 		motion = new_motion
-		
-	if motion != Vector2.ZERO:
-		if not footsteps_audio_player.playing:
-			footsteps_audio_player.play()
-	else:
-		footsteps_audio_player.stop()
-
-	if Input.is_action_pressed("action_shoot"):
-		is_shooting = true
-		if gun_recharge_timer > 1:
-			var projectile_direction = mouse_direction
-			var deviation_angle = rand_range(-0.05, 0.05)  # choose a random deviation angle
-			shoot(projectile_direction, deviation_angle)
-			gun_recharge_timer = 0
-		else:
-			gun_recharge_timer += delta * (4 + current_ammo)
-	else:
-		is_shooting = false
 
 func get_input_vector():
-	var input_vector = Vector2.ZERO
+	""" Returns a normalized vector representing the player's directional input. """
 	
-	# Check for movement keys and update the input vector accordingly
+	var input_vector = Vector2.ZERO
 	if Input.is_action_pressed("move_left"):
 		input_vector.x -= 1
 	if Input.is_action_pressed("move_right"):
@@ -137,23 +212,30 @@ func get_input_vector():
 	if Input.is_action_just_pressed("ui_up"):
 		damage()
 	
-	# Normalize the input vector to ensure that diagonal movement is not faster than horizontal/vertical movement
+	# Normalize the input vector to ensure that 
+	# diagonal movement is not faster than horizontal/vertical movement
 	return input_vector.normalized()
 
 func shoot(projectile_dir: Vector2 = Vector2.ZERO, deviation_angle = 0):
+	""" Spawns a projectile in the direction of the mouse cursor and initiates knockback. """
 	
+	# If the player has no ammo, play the empty sound effect and return
+	# Otherwise, decrease the player's ammo
 	if current_ammo < 0.1:
 		play_sound("assets/sounds/battery_collect_full.wav", 1)
 		return
 	else:
 		set_current_ammo(current_ammo-0.8)
 	
+	# Simulate recoil by applying a force in the opposite direction of the projectile
 	knockback(projectile_dir, deviation_angle)
-		
+	
+	# Spawn a projectile in the direction of the mouse cursor
 	var projectile = projectile_scene.instance()
 	get_tree().current_scene.add_child(projectile)
 	projectile.global_position = global_position
 
+	# Rotate the projectile to face the mouse cursor
 	var projectile_rot = projectile_dir.angle() + deviation_angle
 	projectile.rotation = projectile_rot
 	
@@ -162,16 +244,37 @@ func shoot(projectile_dir: Vector2 = Vector2.ZERO, deviation_angle = 0):
 	shoot_audio_player.play()
 	
 	# Shake the camera
-	var camera = get_node("PlayerCamera")
-	# camera.shake()
 	camera.flash_screen()
 	
 	set_health(health - 0.05)
-	
-func damage():
-	
+
+func emote_exclaim():
+	""" Displays the exclamation mark emote. """
+	emote.frame = 0
+	emote.show()
+	current_emote = emotes.EXLAIM
+
+func emote_question():
+	""" Displays the question mark emote. """
+	emote.frame = 1
+	emote.show()
+	current_emote = emotes.QUESTION
+
+func emote_love():
+	""" Displays the heart emote. """
+	emote.frame = 2
+	emote.show()
+	current_emote = emotes.LOVE
+
+func emote_idle():
+	""" Displays the exclamation mark emote. """
+	emote.hide()
+	current_emote = emotes.IDLE
+
+func damage(decrease_amount:float=1):
+	""" Decreases the player's health and plays the damage visual and sound effect. """
+
 	# Play damage visual effect
-	var damage_effect = get_node("DamageEffect")
 	damage_effect.modulate = Color(1, 0, 0, 1)
 	yield(get_tree().create_timer(0.1), "timeout")
 	damage_effect.modulate = Color(1, 1, 1, 1)
@@ -180,17 +283,21 @@ func damage():
 	yield(get_tree().create_timer(0.1), "timeout")
 	damage_effect.modulate = Color(1, 1, 1, 1)
 	
-	set_health(health - health_increment)
+	# Decrease the player's health
+	set_health(health - decrease_amount)
+
+	# Play the hurt sound effect
+	play_sound("assets/sounds/hurt_1.wav")
 	
-func heal(health_amount:float):
+func heal(increase_amount:float=1):
+	""" Increases the player's health and plays the heal visual and sound effect. """
 	if (health >= 10): # If already full on health, don't try to increment
-		play_sound("assets/sounds/battery_collect_full.wav", 1)
+		play_sound("assets/sounds/battery_collect_full.wav")
 		return
-	var new_health = health + health_amount
+	var new_health = health + increase_amount
 	set_health(new_health)
 	
 	# Play health visual effect
-	var damage_effect = get_node("DamageEffect")
 	damage_effect.modulate = Color(0, 1, 0.8, 1)
 	yield(get_tree().create_timer(0.05), "timeout")
 	damage_effect.modulate = Color(1, 1, 1, 1)
@@ -209,7 +316,7 @@ func knockback(projectile_dir: Vector2 = Vector2.ZERO, deviation_angle: float = 
 	var knockback_dir = projectile_dir.rotated(deviation_angle)  # apply deviation to projectile direction
 	motion += -knockback_dir * knockback_force
 	
-func play_sound(sound_path, pitch):
+func play_sound(sound_path, pitch:float=1):
 	var collect_sound = load(sound_path)
 	effect_audio_player.stream = collect_sound
 	effect_audio_player.pitch_scale = pitch
@@ -218,3 +325,7 @@ func play_sound(sound_path, pitch):
 func set_health(new_value):
 	health = min(new_value, 10)
 	emit_signal("health_changed")
+
+
+func _on_PlayerCharacter_player_death():
+	pass # Replace with function body.

@@ -1,8 +1,9 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://assets/shaders/OutlineShader.tres" type="Material" id=1]
 [ext_resource path="res://assets/sounds/battery_collect.wav" type="AudioStream" id=2]
 [ext_resource path="res://assets/sounds/alert_2.wav" type="AudioStream" id=3]
+[ext_resource path="res://assets/graphics/player/emotes.png" type="Texture" id=4]
 [ext_resource path="res://scripts/player/PlayerCharacter.gd" type="Script" id=5]
 [ext_resource path="res://scenes/projectiles/Projectile.tscn" type="PackedScene" id=6]
 [ext_resource path="res://assets/sounds/shoot_1.wav" type="AudioStream" id=7]
@@ -85,6 +86,26 @@ animations = [ {
 "speed": 5.0
 } ]
 
+[sub_resource type="AtlasTexture" id=15]
+atlas = ExtResource( 4 )
+region = Rect2( 0, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=16]
+atlas = ExtResource( 4 )
+region = Rect2( 16, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=17]
+atlas = ExtResource( 4 )
+region = Rect2( 32, 0, 16, 16 )
+
+[sub_resource type="SpriteFrames" id=18]
+animations = [ {
+"frames": [ SubResource( 15 ), SubResource( 16 ), SubResource( 17 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
 [node name="PlayerCharacter" type="KinematicBody2D"]
 scale = Vector2( 3, 3 )
 z_index = 1
@@ -131,3 +152,12 @@ playing = true
 stream = ExtResource( 3 )
 volume_db = -27.105
 pitch_scale = 0.8
+
+[node name="EmoteSprite" type="AnimatedSprite" parent="."]
+visible = false
+position = Vector2( 0, -24 )
+scale = Vector2( 0.666667, 0.666667 )
+frames = SubResource( 18 )
+speed_scale = 0.2
+
+[connection signal="player_death" from="." to="." method="_on_PlayerCharacter_player_death"]
