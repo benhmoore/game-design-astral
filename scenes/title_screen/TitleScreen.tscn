@@ -1,10 +1,10 @@
 [gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://scenes/TitleScreen/StartGameButton.tscn" type="PackedScene" id=1]
-[ext_resource path="res://scenes/TitleScreen/OptionsButton.tscn" type="PackedScene" id=2]
-[ext_resource path="res://scenes/TitleScreen/QuitGameButton.tscn" type="PackedScene" id=3]
-[ext_resource path="res://scenes/TitleScreen/MenuButton.gd" type="Script" id=4]
-[ext_resource path="res://scenes/TitleScreen/title_screen.gd" type="Script" id=5]
+[ext_resource path="res://scenes/title_screen/StartGameButton.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/title_screen/OptionsButton.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/title_screen/QuitGameButton.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/title_screen/MenuButton.gd" type="Script" id=4]
+[ext_resource path="res://scenes/title_screen/title_screen.gd" type="Script" id=5]
 [ext_resource path="res://assets/graphics/logos/outcastlogo.png" type="Texture" id=6]
 
 [node name="TitleScreen" type="Control"]

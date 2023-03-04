@@ -5,7 +5,7 @@
 [ext_resource path="res://scenes/projectiles/Projectile.tscn" type="PackedScene" id=6]
 [ext_resource path="res://assets/sounds/shoot_1.wav" type="AudioStream" id=7]
 [ext_resource path="res://assets/sounds/walk_1.wav" type="AudioStream" id=8]
-[ext_resource path="res://scenes/player/Camera.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scenes/player/PlayerCamera.tscn" type="PackedScene" id=9]
 [ext_resource path="res://assets/graphics/player/outcast_sprites.png" type="Texture" id=10]
 
 [sub_resource type="CapsuleShape2D" id=1]

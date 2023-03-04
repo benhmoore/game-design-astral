@@ -11,7 +11,7 @@ config_version=4
 [application]
 
 config/name="Outcast"
-run/main_scene="res://scenes/TitleScreen/TitleScreen.tscn"
+run/main_scene="res://scenes/title_screen/TitleScreen.tscn"
 boot_splash/show_image=false
 config/icon="res://icon.png"
 
