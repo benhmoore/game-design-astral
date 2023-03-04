@@ -1,5 +1,7 @@
 extends Camera2D
 
+const PauseScreen = preload("res://scenes/game_ui/PauseMenu.tscn")
+
 var shake_time = 0.2
 var shake_intensity = 1.5
 var shake_speed = 50.0
@@ -89,3 +91,8 @@ func _process(delta):
 
 func set_following_player(follow: bool):
 	following_player = follow
+	
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_cancel"):
+		var pause_menu = PauseScreen.instance()
+		add_child(pause_menu)
