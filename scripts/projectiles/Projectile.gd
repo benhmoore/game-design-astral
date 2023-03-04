@@ -22,7 +22,5 @@ func _on_Projectile_body_entered(body: PhysicsBody2D) -> void:
 
 		destroy()
 
-
-
 func _on_VisibilityNotifier2D_viewport_exited(_viewport):
 	queue_free()
