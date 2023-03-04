@@ -92,7 +92,7 @@ func shoot(projectile_dir: Vector2 = Vector2.ZERO, deviation_angle = 0):
 	shoot_audio_player.play()
 	
 	# Shake the camera
-	var camera = get_node("Camera2D")
+	var camera = get_node("PlayerCamera")
 	# camera.shake()
 	camera.flash_screen()
 	

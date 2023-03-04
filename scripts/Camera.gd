@@ -13,7 +13,7 @@ export var zoom_border: float = 400.0
 var should_recenter_camera = false
 
 onready var player: KinematicBody2D = get_node("/root/Node2D/PlayerCharacter")
-onready var flash: ColorRect = $ColorRect
+onready var flash: ColorRect = get_node("GunFlashRect")
 
 var following_player = true
 

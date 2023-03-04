@@ -15,6 +15,10 @@ run/main_scene="res://scenes/title_screen/TitleScreen.tscn"
 boot_splash/show_image=false
 config/icon="res://icon.png"
 
+[autoload]
+
+PlayerHud="*res://scenes/player/PlayerHUD.tscn"
+
 [display]
 
 window/dpi/allow_hidpi=true
