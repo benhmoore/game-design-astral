@@ -1,9 +1,10 @@
 extends CanvasLayer
 
+const PauseScreen = preload("res://scenes/game_ui/PauseMenu.tscn")
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
+func _on_Button_pressed():
+	var pause_menu = PauseScreen.instance()
+	add_child(pause_menu)
 
 onready var player: KinematicBody2D = get_node_or_null("/root/Node2D/PlayerCharacter")
 onready var health_bar = get_node_or_null("Display/HealthBar")
