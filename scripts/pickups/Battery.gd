@@ -5,7 +5,7 @@ extends Node2D
 # var a = 2
 # var b = "text"
 
-export var magnet_speed = 1250
+export var magnet_speed = 1500
 onready var tween = get_node("Tween")
 var colliding_body
 
@@ -18,7 +18,7 @@ func are_positions_close(position1: Vector2, position2: Vector2, epsilon: float)
 
 func _process(delta: float) -> void:
 	if colliding_body and colliding_body.name == "PlayerCharacter":
-		if are_positions_close(position, colliding_body.position, 35):
+		if are_positions_close(position, colliding_body.position, 40):
 			# Code to execute when the battery is close enough to the player
 			
 			colliding_body.heal(colliding_body.health_increment)

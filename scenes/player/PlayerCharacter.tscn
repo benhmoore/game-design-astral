@@ -123,7 +123,7 @@ material = ExtResource( 1 )
 position = Vector2( 25.6667, 26 )
 frames = SubResource( 2 )
 animation = "idle.front.right"
-frame = 2
+frame = 1
 speed_scale = 0.8
 playing = true
 

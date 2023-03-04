@@ -1,9 +1,10 @@
 extends KinematicBody2D
 
 signal health_changed # Emitted whenever heal() or damage() is called
+signal current_ammo_changed
 signal player_death
 
-export var max_speed = 300
+export var max_speed = 325
 export var acceleration = 2000
 export var projectile_scene: PackedScene
 export var knockback_force = 175
@@ -19,9 +20,16 @@ onready var footsteps_audio_player = get_node("FootstepsAudioPlayer")
 onready var effect_audio_player = get_node("EffectAudioPlayer")
 onready var danger_audio_player = get_node("DangerAudioPlayer")
 
+export var max_ammo = 10
+var current_ammo:float = 0 setget set_current_ammo
+
 var motion = Vector2.ZERO
 
+var gun_recharge_timer = 0
 var low_health_timer = 0
+
+var is_shooting = false
+
 func _process(delta):
 	low_health_timer += delta
 	if low_health_timer > 0.1:
@@ -42,8 +50,16 @@ func _process(delta):
 		emit_signal("player_death")
 	else:
 		set_health(health - (delta * 0.2))
-			
-
+	
+	if current_ammo < 10:
+		if is_shooting == false:
+			var new_ammo = min(current_ammo + (delta*15), max_ammo)
+			set_current_ammo(new_ammo)
+		
+func set_current_ammo(new_value:float):
+	current_ammo = new_value
+	emit_signal("current_ammo_changed")
+	
 func _physics_process(delta):
 	var input_vector = get_input_vector()
 	var mouse_position = get_global_mouse_position()
@@ -65,9 +81,14 @@ func _physics_process(delta):
 	
 	# Calculate the player's new motion based on input and acceleration
 	var new_motion = motion
+	var sprint_multiplier = 1
+	if Input.is_action_pressed("action_sprint"):
+		sprint_multiplier = 1.5
+		
 	if input_vector != Vector2.ZERO:
 		new_motion += input_vector.normalized() * acceleration * delta
 	new_motion = new_motion.limit_length(max_speed)
+	new_motion = new_motion * sprint_multiplier
 	
 	# If the player is not holding down a movement key and is not experiencing knockback, gradually slow them down with friction
 	if input_vector == Vector2.ZERO:
@@ -89,12 +110,17 @@ func _physics_process(delta):
 	else:
 		footsteps_audio_player.stop()
 
-	if Input.is_action_just_pressed("action_shoot"):
-		var projectile_direction = mouse_direction
-		var deviation_angle = rand_range(-0.05, 0.05)  # choose a random deviation angle
-		shoot(projectile_direction, deviation_angle)
-		knockback(projectile_direction, deviation_angle)
-
+	if Input.is_action_pressed("action_shoot"):
+		is_shooting = true
+		if gun_recharge_timer > 1:
+			var projectile_direction = mouse_direction
+			var deviation_angle = rand_range(-0.05, 0.05)  # choose a random deviation angle
+			shoot(projectile_direction, deviation_angle)
+			gun_recharge_timer = 0
+		else:
+			gun_recharge_timer += delta * (4 + current_ammo)
+	else:
+		is_shooting = false
 
 func get_input_vector():
 	var input_vector = Vector2.ZERO
@@ -115,6 +141,15 @@ func get_input_vector():
 	return input_vector.normalized()
 
 func shoot(projectile_dir: Vector2 = Vector2.ZERO, deviation_angle = 0):
+	
+	if current_ammo < 0.1:
+		play_sound("assets/sounds/battery_collect_full.wav", 1)
+		return
+	else:
+		set_current_ammo(current_ammo-0.8)
+	
+	knockback(projectile_dir, deviation_angle)
+		
 	var projectile = projectile_scene.instance()
 	get_tree().current_scene.add_child(projectile)
 	projectile.global_position = global_position
@@ -131,7 +166,7 @@ func shoot(projectile_dir: Vector2 = Vector2.ZERO, deviation_angle = 0):
 	# camera.shake()
 	camera.flash_screen()
 	
-	set_health(health - 0.1)
+	set_health(health - 0.05)
 	
 func damage():
 	
