@@ -1,13 +1,21 @@
 extends KinematicBody2D
 
+signal health_changed # Emitted whenever heal() or damage() is called
+
 export var max_speed = 300
 export var acceleration = 2000
 export var projectile_scene: PackedScene
 export var knockback_force = 175
 export var friction = 1750
 
+export var lives = 3
+
+export var health_increment = 1
+var health:float = 6 setget set_health
+
 onready var shoot_audio_player = get_node("ShootAudioPlayer")
 onready var footsteps_audio_player = get_node("FootstepsAudioPlayer")
+onready var effect_audio_player = get_node("EffectAudioPlayer")
 
 var motion = Vector2.ZERO
 
@@ -101,9 +109,40 @@ func damage():
 	damage_effect.modulate = Color(1, 0, 0, 1)
 	yield(get_tree().create_timer(0.1), "timeout")
 	damage_effect.modulate = Color(1, 1, 1, 1)
+	set_health(health - health_increment)
 	
+func heal(health_amount:float):
+	if (health == 10): # If already full on health, don't try to increment
+		play_sound("assets/sounds/battery_collect_full.wav", 1)
+		return
+	var new_health = health + health_amount
+	set_health(new_health)
+	var damage_effect = get_node("DamageEffect")
+	damage_effect.modulate = Color(0, 1, 0.8, 1)
+	yield(get_tree().create_timer(0.05), "timeout")
+	damage_effect.modulate = Color(1, 1, 1, 1)
+	yield(get_tree().create_timer(0.05), "timeout")
+	damage_effect.modulate = Color(0, 1, 0.8, 1)
+	yield(get_tree().create_timer(0.05), "timeout")
+	damage_effect.modulate = Color(1, 1, 1, 1)
+	
+	# Adjust pitch based on new_health value
+	var scaled_pitch = 2 + (new_health / 50)
+	play_sound("assets/sounds/battery_collect.wav", scaled_pitch)
+	if new_health == 10:
+		play_sound("assets/sounds/health_full.wav", 2)
 
 func knockback(projectile_dir: Vector2 = Vector2.ZERO, deviation_angle: float = 0):
 	var knockback_dir = projectile_dir.rotated(deviation_angle)  # apply deviation to projectile direction
 	motion += -knockback_dir * knockback_force
+	
+func play_sound(sound_path, pitch):
+	var collect_sound = load(sound_path)
+	effect_audio_player.stream = collect_sound
+	effect_audio_player.pitch_scale = pitch
+	effect_audio_player.play()
 
+	
+func set_health(new_value):
+	health = min(new_value, 10)
+	emit_signal("health_changed")

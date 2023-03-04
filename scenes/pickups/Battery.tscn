@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://assets/graphics/pickups/battery.png" type="Texture" id=1]
 [ext_resource path="res://scripts/pickups/Battery.gd" type="Script" id=2]
+[ext_resource path="res://assets/sounds/battery_collect.wav" type="AudioStream" id=3]
 
 [sub_resource type="CapsuleShape2D" id=5]
 radius = 41.5
@@ -119,5 +120,8 @@ speed_scale = 0.8
 playing = true
 
 [node name="Tween" type="Tween" parent="."]
+
+[node name="CollectAudioPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
 
 [connection signal="body_entered" from="BatteryArea2D" to="." method="_on_BatteryArea2D_body_entered"]

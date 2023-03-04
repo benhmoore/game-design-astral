@@ -56,5 +56,23 @@ position = Vector2( 742, 693 )
 [node name="Battery2" parent="." instance=ExtResource( 2 )]
 position = Vector2( 660, 600 )
 
+[node name="Battery4" parent="." instance=ExtResource( 2 )]
+position = Vector2( 489, 661 )
+
+[node name="Battery5" parent="." instance=ExtResource( 2 )]
+position = Vector2( 401, 556 )
+
+[node name="Battery6" parent="." instance=ExtResource( 2 )]
+position = Vector2( 1289, 386 )
+
+[node name="Battery7" parent="." instance=ExtResource( 2 )]
+position = Vector2( 1290, 551 )
+
+[node name="Battery8" parent="." instance=ExtResource( 2 )]
+position = Vector2( 1411, 697 )
+
+[node name="Battery9" parent="." instance=ExtResource( 2 )]
+position = Vector2( 1198, 780 )
+
 [node name="Battery3" parent="." instance=ExtResource( 2 )]
 position = Vector2( 797, 626 )
