@@ -15,7 +15,7 @@ script = ExtResource( 1 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="ProgressBar" type="ProgressBar" parent="Display"]
+[node name="HealthBar" type="ProgressBar" parent="Display"]
 margin_left = 16.0
 margin_top = 16.0
 margin_right = 208.0
@@ -23,7 +23,7 @@ margin_bottom = 32.0
 custom_styles/fg = SubResource( 1 )
 custom_styles/bg = SubResource( 2 )
 max_value = 10.0
-value = 5.0
+value = 3.0
 percent_visible = false
 
 [node name="Button" type="Button" parent="Display"]
