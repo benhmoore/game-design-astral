@@ -5,7 +5,7 @@
 [ext_resource path="res://scenes/projectiles/Projectile.tscn" type="PackedScene" id=6]
 [ext_resource path="res://assets/sounds/shoot_1.wav" type="AudioStream" id=7]
 [ext_resource path="res://assets/sounds/walk_1.wav" type="AudioStream" id=8]
-[ext_resource path="res://scenes/player/Camera.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scenes/player/PlayerCamera.tscn" type="PackedScene" id=9]
 [ext_resource path="res://assets/graphics/player/outcast_sprites.png" type="Texture" id=10]
 
 [sub_resource type="CapsuleShape2D" id=1]
@@ -90,7 +90,7 @@ collision_mask = 2147483648
 script = ExtResource( 5 )
 projectile_scene = ExtResource( 6 )
 
-[node name="Camera2D" parent="." instance=ExtResource( 9 )]
+[node name="PlayerCamera" parent="." instance=ExtResource( 9 )]
 
 [node name="Feet_CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 10 )
@@ -117,6 +117,5 @@ material = ExtResource( 1 )
 position = Vector2( 25.6667, 26 )
 frames = SubResource( 2 )
 animation = "idle.front.right"
-frame = 2
 speed_scale = 0.8
 playing = true

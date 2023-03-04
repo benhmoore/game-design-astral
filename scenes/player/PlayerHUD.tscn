@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://assets/graphics/fonts/pixelfont.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://scripts/player/PlayerHUD.gd" type="Script" id=2]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.321569, 0.945098, 0.235294, 1 )
+
+[sub_resource type="StyleBoxFlat" id=2]
+
+[sub_resource type="DynamicFont" id=3]
+size = 11
+font_data = ExtResource( 1 )
+
+[node name="PlayerHUD" type="CanvasLayer"]
+layer = 2
+script = ExtResource( 2 )
+
+[node name="Display" type="Control" parent="."]
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ProgressBar" type="ProgressBar" parent="Display"]
+margin_left = 16.0
+margin_top = 16.0
+margin_right = 208.0
+margin_bottom = 32.0
+custom_styles/fg = SubResource( 1 )
+custom_styles/bg = SubResource( 2 )
+max_value = 10.0
+value = 5.0
+percent_visible = false
+
+[node name="PauseButton" type="Button" parent="Display"]
+margin_left = 928.0
+margin_top = 16.0
+margin_right = 1006.0
+margin_bottom = 58.0
+custom_fonts/font = SubResource( 3 )
+text = "Pause"
+
+[connection signal="pressed" from="Display/PauseButton" to="." method="_on_PauseButton_pressed"]
