@@ -6,6 +6,4 @@
 
 [node name="Label" parent="." index="0"]
 text = "Start Game"
-align = 1
-valign = 1
 clip_text = true
