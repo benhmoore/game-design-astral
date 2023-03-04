@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://scenes/TitleScreen/MenuButton.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/title_screen/MenuButton.tscn" type="PackedScene" id=1]
 
 [node name="QuitGameButton" instance=ExtResource( 1 )]
 

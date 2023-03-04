@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://assets/shaders/CrtShader.tres" type="Material" id=1]
+
+[node name="ScreenEffect" type="CanvasLayer"]
+
+[node name="TextureRect" type="ColorRect" parent="."]
+material = ExtResource( 1 )
+margin_right = 1920.0
+margin_bottom = 1080.0
+mouse_default_cursor_shape = 3
+__meta__ = {
+"_edit_lock_": true
+}
