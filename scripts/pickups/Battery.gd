@@ -22,6 +22,7 @@ func _process(_delta: float) -> void:
 			# Code to execute when the battery is close enough to the player
 			
 			colliding_body.heal(1) # Heal the player by 1 unit
+			colliding_body.emote_question(1.5)
 			queue_free()
 
 func _on_BatteryArea2D_body_entered(body):

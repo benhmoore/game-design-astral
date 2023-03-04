@@ -248,23 +248,32 @@ func shoot(projectile_dir: Vector2 = Vector2.ZERO, deviation_angle = 0):
 	
 	set_health(health - 0.05)
 
-func emote_exclaim():
+func emote_exclaim(duration:float=-1):
 	""" Displays the exclamation mark emote. """
 	emote.frame = 0
 	emote.show()
 	current_emote = emotes.EXLAIM
+	if duration > 0:
+		yield(get_tree().create_timer(duration), "timeout")
+		emote_idle()
 
-func emote_question():
+func emote_question(duration:float=-1):
 	""" Displays the question mark emote. """
 	emote.frame = 1
 	emote.show()
 	current_emote = emotes.QUESTION
+	if duration > 0:
+		yield(get_tree().create_timer(duration), "timeout")
+		emote_idle()
 
-func emote_love():
+func emote_love(duration:float=-1):
 	""" Displays the heart emote. """
 	emote.frame = 2
 	emote.show()
 	current_emote = emotes.LOVE
+	if duration > 0:
+		yield(get_tree().create_timer(duration), "timeout")
+		emote_idle()
 
 func emote_idle():
 	""" Displays the exclamation mark emote. """
