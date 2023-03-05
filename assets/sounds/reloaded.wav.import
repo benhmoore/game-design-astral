@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/astral-sound.wav-3d0d684d5c85c886ef80f6366a32da9c.sample"
+path="res://.import/reloaded.wav-67b2dda648a9a098aa7cf2a85e3d8c7c.sample"
 
 [deps]
 
-source_file="res://assets/music/astral-sound.wav"
-dest_files=[ "res://.import/astral-sound.wav-3d0d684d5c85c886ef80f6366a32da9c.sample" ]
+source_file="res://assets/sounds/reloaded.wav"
+dest_files=[ "res://.import/reloaded.wav-67b2dda648a9a098aa7cf2a85e3d8c7c.sample" ]
 
 [params]
 
@@ -17,7 +17,7 @@ force/max_rate=false
 force/max_rate_hz=44100
 edit/trim=false
 edit/normalize=false
-edit/loop_mode=2
+edit/loop_mode=0
 edit/loop_begin=0
 edit/loop_end=-1
 compress/mode=0

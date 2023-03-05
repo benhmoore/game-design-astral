@@ -1,11 +1,14 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://scenes/player/PlayerHUD.gd" type="Script" id=1]
+[ext_resource path="res://scripts/player/PlayerHUD.gd" type="Script" id=1]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.321569, 0.945098, 0.235294, 1 )
 
 [sub_resource type="StyleBoxFlat" id=2]
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0.878431, 0.188235, 0.188235, 1 )
 
 [node name="PlayerHUD" type="CanvasLayer"]
 layer = 2
@@ -20,10 +23,23 @@ margin_left = 16.0
 margin_top = 16.0
 margin_right = 208.0
 margin_bottom = 32.0
+rect_pivot_offset = Vector2( 128, 0 )
 custom_styles/fg = SubResource( 1 )
 custom_styles/bg = SubResource( 2 )
 max_value = 10.0
 value = 3.0
+percent_visible = false
+
+[node name="CurrentAmmoBar" type="ProgressBar" parent="Display"]
+margin_left = 16.0
+margin_top = 40.0
+margin_right = 208.0
+margin_bottom = 48.0
+rect_pivot_offset = Vector2( 128, 0 )
+custom_styles/fg = SubResource( 3 )
+custom_styles/bg = SubResource( 2 )
+max_value = 10.0
+value = 10.0
 percent_visible = false
 
 [node name="Button" type="Button" parent="Display"]

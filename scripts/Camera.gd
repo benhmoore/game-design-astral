@@ -37,7 +37,7 @@ func shake():
 
 func flash_screen():
 	flash.show()
-	yield(get_tree().create_timer(0.1), "timeout")
+	yield(get_tree().create_timer(0.05), "timeout")
 	flash.hide()
 
 func _process(delta):
@@ -73,7 +73,7 @@ func _process(delta):
 
 			# Set the new zoom level
 			zoom = current_zoom
-			should_recenter_camera = false
+			should_recenter_camera = true
 		else:
 			# Set the zoom level to the default value when the player is not moving
 			current_zoom = current_zoom.linear_interpolate(Vector2(min_zoom, min_zoom), delta * zoom_speed)
