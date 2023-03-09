@@ -13,6 +13,7 @@ var is_moving = false
 var is_sprinting = false
 
 # Player health variables
+var player_deaths = 0
 var health:float = 6 setget set_health
 export var lives = 3
 var low_health_timer = 0
@@ -30,6 +31,7 @@ var current_emote = emotes.IDLE
 export var projectile_scene: PackedScene
 export var max_ammo = 10
 export var knockback_force = 175
+var projectile_inaccuracy = 0.05
 var current_ammo:float = 0 setget set_current_ammo
 var is_shooting = false
 var gun_recharge_timer = 0
@@ -70,8 +72,7 @@ func _process(delta:float):
 	# and enable the damage effect indefinitely
 	# Otherwise, gradually decrease the player's health
 	if health <= 0:
-		damage_effect.modulate = Color(1, 0.58, 0.43,1)
-		emit_signal("player_death")
+		kill_player()
 	else:
 		# If the player is sprinting, decrease their health faster
 		if is_sprinting:
@@ -104,14 +105,37 @@ func _process(delta:float):
 		is_shooting = true
 		if gun_recharge_timer > 1:
 			var projectile_direction = mouse_direction
-			var deviation_angle = rand_range(-0.05, 0.05)  # choose a random deviation angle
+			
+			# Affect the player's accuracy based on their number of deaths
+			var deviation_angle = rand_range(-projectile_inaccuracy, projectile_inaccuracy)  # choose a random deviation angle
+
 			shoot(projectile_direction, deviation_angle)
 			gun_recharge_timer = 0
 		else:
 			gun_recharge_timer += delta * (4 + current_ammo)
 	else:
 		is_shooting = false
-		
+
+func kill_player():
+	""" Kills the player. """
+	set_health(10)
+	# damage_effect.modulate = Color(1, 0.58, 0.43,1)
+	emit_signal("player_death")
+	print("Set player's position")
+
+	move_to(1048, 546)
+	player_deaths += 1
+
+	# Decrease the player's projectile inaccuracy based on their number of deaths
+	if player_deaths > 5 and projectile_inaccuracy > 0:
+		projectile_inaccuracy = max(0, 0.05 - ((player_deaths - 5) * 0.01))
+		print("Player inaccuracy set to " + str(projectile_inaccuracy))
+	print("Player deaths: " + str(player_deaths))
+
+func move_to(x:float, y:float):
+	""" Moves the player to the specified position. """
+	position = Vector2(x, y)
+
 func flash_low_health(duration:float=0.2):
 	""" Flashes the damage effect. """
 	# Display the damage effect for 0.3 sec

@@ -5,7 +5,7 @@
 [ext_resource path="res://assets/music/astral-sound.wav" type="AudioStream" id=4]
 [ext_resource path="res://assets/graphics/tilemap.tres" type="TileSet" id=5]
 
-[node name="Node2D" type="Node2D"]
+[node name="Main" type="Node2D"]
 
 [node name="PlayerCharacter" parent="." instance=ExtResource( 1 )]
 position = Vector2( 1048, 546 )
