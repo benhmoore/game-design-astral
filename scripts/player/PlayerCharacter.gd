@@ -1,9 +1,14 @@
 extends KinematicBody2D
 
+func _ready():
+	add_to_group("player")
+	
+	
 # PlayerCharacter signals
 signal health_changed # Emitted whenever heal() or damage() is called
 signal ammo_changed # Emitted whenever ammo is added or removed
 signal player_death # Emitted when the player's health reaches 0
+signal hit
 
 # Player movement variables
 export var max_speed = 325
@@ -254,8 +259,10 @@ func shoot(projectile_dir: Vector2 = Vector2.ZERO, deviation_angle = 0):
 	# Simulate recoil by applying a force in the opposite direction of the projectile
 	knockback(projectile_dir, deviation_angle)
 	
+	
 	# Spawn a projectile in the direction of the mouse cursor
 	var projectile = projectile_scene.instance()
+	projectile.shooter = self
 	get_tree().current_scene.add_child(projectile)
 	projectile.global_position = global_position
 
@@ -359,6 +366,8 @@ func set_health(new_value):
 	health = min(new_value, 10)
 	emit_signal("health_changed")
 
-
 func _on_PlayerCharacter_player_death():
 	pass # Replace with function body.
+
+func _on_PlayerCharacter_hit():
+	damage()
