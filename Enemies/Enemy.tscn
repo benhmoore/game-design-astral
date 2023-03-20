@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://Shadows/SmallShadow.png" type="Texture" id=1]
 [ext_resource path="res://Enemies/Enemies.png" type="Texture" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://Hit & Hurt Boxes/HitBox.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Hit & Hurt Boxes/SoftCollision.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Enemies/WanderController.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Enemies/EnemyDeathParticles.tscn" type="PackedScene" id=10]
 
 [sub_resource type="Shader" id=16]
 code = "shader_type canvas_item;
@@ -111,6 +112,7 @@ tracks/0/keys = {
 [node name="Enemy" type="KinematicBody2D"]
 collision_layer = 16
 script = ExtResource( 4 )
+EnemyDeathParticles = ExtResource( 10 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 material = SubResource( 12 )

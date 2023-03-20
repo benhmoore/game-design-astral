@@ -4,6 +4,8 @@ export var ACCELERATION = 300
 export var MAX_SPEED = 50
 export var FRICTION = 200 
 export var WANDER_TARGET_RANGE = 6
+export(PackedScene) var EnemyDeathParticles
+
 
 enum {
 	IDLE,
@@ -23,6 +25,7 @@ onready var hurtbox = $HurtBox
 onready var soft_collision = $SoftCollision
 onready var wander_controller = $WanderController
 onready var animation_player = $AnimationPlayer
+onready var particles_instance = $EnemyDeathParticles
 
 func _ready():
 	state = pick_random_state([IDLE, WANDER])
@@ -81,6 +84,11 @@ func pick_random_state(state_list: Array):
 	return state_list.pop_front()
 
 func _on_Stats_no_health():
+	var particles_instance = EnemyDeathParticles.instance()
+	get_parent().add_child(particles_instance)
+	particles_instance.global_position = global_position
+	particles_instance.one_shot = true
+	particles_instance.emitting = true
 	queue_free()
 
 func _on_HurtBox_area_entered(area):
