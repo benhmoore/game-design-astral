@@ -29,13 +29,14 @@ func set_shooter(shooter):
 
 func _on_Projectile_body_entered(body: PhysicsBody2D) -> void:
 	if body.is_in_group("enemy"):
-		print("_on_Projectile_body_entered HURTBOX")
-		body.emit_signal("hit", shooter)
+		print("Player hit an enemy")
+		body.get_node("HurtBox").emit_signal("hit", body) # Emit signal from the hurtbox
 		var hit = hit_particles.instance()
 		get_tree().current_scene.add_child(hit)
 		hit.global_transform.origin = global_transform.origin + Vector2(15,0)
 		hit.global_rotation = get_rotation() + PI
 		destroy()
+
 
 func _on_Projectile_area_entered(area: Area2D) -> void:
 	if area.is_in_group("walls"):

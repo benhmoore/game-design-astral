@@ -114,7 +114,8 @@ height = 12.0
 [node name="PlayerCharacter" type="KinematicBody2D"]
 scale = Vector2( 3, 3 )
 z_index = 1
-collision_mask = 2147483648
+collision_layer = 9
+collision_mask = 2147483657
 script = ExtResource( 5 )
 projectile_scene = ExtResource( 6 )
 
@@ -150,7 +151,6 @@ material = ExtResource( 1 )
 position = Vector2( 25.6667, 26 )
 frames = SubResource( 2 )
 animation = "idle.front.right"
-frame = 1
 speed_scale = 0.8
 playing = true
 
@@ -174,6 +174,5 @@ shape = SubResource( 19 )
 
 [connection signal="hit" from="." to="." method="_on_PlayerCharacter_hit"]
 [connection signal="player_death" from="." to="." method="_on_PlayerCharacter_player_death"]
-[connection signal="hit" from="HurtBox" to="HurtBox" method="_on_HurtBox_hit"]
 
 [editable path="HurtBox"]

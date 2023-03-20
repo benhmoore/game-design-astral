@@ -8,7 +8,7 @@ export var FRICTION = 200
 export var WANDER_TARGET_RANGE = 6
 export(PackedScene) var EnemyDeathParticles
 var shooter = null
-
+signal hit
 
 
 enum {
@@ -46,9 +46,11 @@ func _on_ShootingTimer_timeout():
 		shoot_projectile(player.global_position, self)
 
 
-func _on_hit():
+func _on_hit(body):
 	print("Enemy's hurtbox has been hit")
-	
+	stats.health -= 5
+	hurtbox.start_invincibility(0.4)
+		
 func _physics_process(delta):
 	knockback = knockback.move_toward(Vector2.ZERO, FRICTION * delta)
 	knockback = move_and_slide(knockback)

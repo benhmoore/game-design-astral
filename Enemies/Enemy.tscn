@@ -110,7 +110,8 @@ tracks/0/keys = {
 }
 
 [node name="Enemy" type="KinematicBody2D"]
-collision_layer = 16
+collision_layer = 9
+collision_mask = 9
 script = ExtResource( 4 )
 EnemyDeathParticles = ExtResource( 10 )
 
@@ -119,7 +120,6 @@ material = SubResource( 12 )
 position = Vector2( 0, 15 )
 frames = SubResource( 19 )
 animation = "fly"
-frame = 1
 playing = true
 offset = Vector2( 0, -12 )
 

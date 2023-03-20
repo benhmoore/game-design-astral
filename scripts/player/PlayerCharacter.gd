@@ -55,11 +55,6 @@ onready var emote = get_node("EmoteSprite")
 # Used to determine the player's current motion
 var motion = Vector2.ZERO
 
-func _on_hit():
-	print("Player has been hit")
-	damage()
-
-
 func _process(delta:float):
 	""" Updates player health and ammo. """
 
@@ -373,7 +368,6 @@ func set_health(new_value):
 
 func _on_PlayerCharacter_player_death():
 	pass # Replace with function body.
-
 
 func _on_PlayerCharacter_hit():
 	damage()

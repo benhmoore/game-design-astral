@@ -31,7 +31,3 @@ func _on_HurtBox_invincibility_started():
 
 func _on_HurtBox_invincibility_ended():
 	collision_shape.disabled = false
-
-func _on_HurtBox_hit():
-	print("dfjfsdjkldfn")
-	pass # Replace with function body.

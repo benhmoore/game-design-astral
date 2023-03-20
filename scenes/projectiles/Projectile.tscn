@@ -25,16 +25,16 @@ shape = SubResource( 1 )
 [node name="FlyAnimation" type="AnimatedSprite" parent="."]
 frames = ExtResource( 2 )
 animation = "projectile.laser"
-frame = 2
 playing = true
 
 [node name="HitAnimation" type="AnimatedSprite" parent="."]
 visible = false
 frames = ExtResource( 2 )
 animation = "projectile.laser.hit"
-frame = 1
+frame = 2
 playing = true
 
 [connection signal="area_entered" from="." to="." method="_on_Projectile_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_Projectile_body_entered"]
+[connection signal="hit" from="." to="." method="_on_Projectile_body_entered"]
 [connection signal="viewport_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_viewport_exited"]
