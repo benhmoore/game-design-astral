@@ -29,7 +29,7 @@ func _on_TeleportPad_area_entered(area: Area2D):
 "
 
 [sub_resource type="CircleShape2D" id=1]
-radius = 40.4969
+radius = 36.0
 
 [node name="Main" type="Node2D"]
 
