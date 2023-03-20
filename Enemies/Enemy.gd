@@ -1,5 +1,6 @@
 extends KinematicBody2D
 
+
 export var ACCELERATION = 300
 export var MAX_SPEED = 50
 export var FRICTION = 200 
@@ -11,13 +12,17 @@ enum {
 	CHASE
 }
 
+export var health = 3
 var velocity = Vector2.ZERO
 var knockback = Vector2.ZERO
 
 var state = IDLE
 
+signal no_health
+
+onready var battery = preload("res://scenes/pickups/Battery.tscn")
+
 onready var sprite = $AnimatedSprite
-onready var stats = $Stats
 onready var player_detection_zone = $PlayerDetectionZone
 onready var hurtbox = $HurtBox
 onready var soft_collision = $SoftCollision
@@ -45,6 +50,8 @@ func _physics_process(delta):
 			accelerate_towards_point(wander_controller.target_position, delta)
 			if global_position.distance_to(wander_controller.target_position) <= WANDER_TARGET_RANGE:
 				update_wander()
+			
+			
 		
 		CHASE:
 			var player = player_detection_zone.player
@@ -74,13 +81,13 @@ func pick_random_state(state_list: Array):
 	state_list.shuffle()
 	return state_list.pop_front()
 
-func _on_Stats_no_health():
-	queue_free()
-
 func _on_HurtBox_area_entered(area):
-	stats.health -= area.damage
+	health -= 1
+	print("Enemy Health Decreased! Now: ", health)
 	knockback = area.knockback_vector * 120
 	hurtbox.start_invincibility(0.4)
+	if health == 0:
+		emit_signal("no_health")
 
 func _on_HurtBox_invincibility_started():
 	animation_player.play("Start")
@@ -88,3 +95,10 @@ func _on_HurtBox_invincibility_started():
 func _on_HurtBox_invincibility_ended():
 	animation_player.play("Stop")
 
+func _on_Enemy_no_health():
+	queue_free()
+	
+	# Spawn a battery on death
+	var new_battery = battery.instance()
+	get_tree().current_scene.add_child(new_battery)
+	new_battery.global_position = global_position
