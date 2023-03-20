@@ -6,7 +6,6 @@ var dialogue = []
 var current_dialogue_id = 0
 var d_active = false
 
-
 func _ready():
 	$NinePatchRect.visible = false
 	
@@ -15,7 +14,6 @@ func start():
 		return
 	d_active = true
 	$NinePatchRect.visible = true
-	
 	
 	dialogue = load_dialogue()
 	current_dialogue_id = -1
@@ -26,8 +24,7 @@ func load_dialogue():
 	if file.file_exists(d_file):
 		file.open(d_file, file.READ)
 		return parse_json(file.get_as_text())
-		
-		
+
 func _input(event):
 	if not d_active:
 		return
@@ -44,7 +41,6 @@ func next_script():
 	
 	$NinePatchRect/Name.text = dialogue[current_dialogue_id]['name']
 	$NinePatchRect/Chat.text = dialogue[current_dialogue_id]['text']
-
 
 func _on_Timer_timeout():
 	d_active = false

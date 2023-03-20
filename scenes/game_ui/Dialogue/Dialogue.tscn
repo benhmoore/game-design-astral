@@ -31,7 +31,7 @@ patch_margin_bottom = 1
 [node name="Name" type="RichTextLabel" parent="NinePatchRect"]
 margin_left = 11.0
 margin_top = 10.0
-margin_right = 268.0
+margin_right = 692.0
 margin_bottom = 31.0
 custom_colors/default_color = Color( 0, 0, 0, 1 )
 custom_fonts/normal_font = SubResource( 1 )
@@ -48,5 +48,6 @@ text = "Chatting..."
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.4
+one_shot = true
 
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
