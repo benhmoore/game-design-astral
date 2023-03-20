@@ -9,9 +9,11 @@ func _process(delta):
 		get_tree().paused = true
 
 func _on_Button_pressed():
+	$ui_click.play()
 	hide()
 	get_tree().paused = false
 	
 func _on_Button2_pressed():
+	$ui_click.play()
 	get_tree().paused = false
 	get_tree().quit()
