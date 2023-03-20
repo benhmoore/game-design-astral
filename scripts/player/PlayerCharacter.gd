@@ -8,6 +8,7 @@ func _ready():
 signal health_changed # Emitted whenever heal() or damage() is called
 signal ammo_changed # Emitted whenever ammo is added or removed
 signal player_death # Emitted when the player's health reaches 0
+signal hit
 
 # Player movement variables
 export var max_speed = 325
@@ -370,6 +371,9 @@ func set_health(new_value):
 	health = min(new_value, 10)
 	emit_signal("health_changed")
 
-
 func _on_PlayerCharacter_player_death():
 	pass # Replace with function body.
+
+
+func _on_PlayerCharacter_hit():
+	damage()

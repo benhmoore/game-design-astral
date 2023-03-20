@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/astral-sound.wav-2924d785d3a663834b6c234c173420ab.sample"
+
+[deps]
+
+source_file="res://assets/sounds/astral-sound.wav"
+dest_files=[ "res://.import/astral-sound.wav-2924d785d3a663834b6c234c173420ab.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

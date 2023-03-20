@@ -32,7 +32,7 @@ func set_shooter(shooter):
 func _on_Projectile_body_entered(body: PhysicsBody2D) -> void:
 	if body.is_in_group("walls") || body.is_in_group("player"):
 		shooter = self
-		body.emit_signal("hit", damage, shooter)
+		body.emit_signal("hit")
 		print("Enemy _on_Projectile_body_entered", body)
 		var hit = hit_particles.instance()
 		get_tree().current_scene.add_child(hit)

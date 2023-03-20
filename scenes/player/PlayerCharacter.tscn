@@ -172,6 +172,7 @@ collision_mask = 9
 [node name="CollisionShape2D" parent="HurtBox" index="0"]
 shape = SubResource( 19 )
 
+[connection signal="hit" from="." to="." method="_on_PlayerCharacter_hit"]
 [connection signal="player_death" from="." to="." method="_on_PlayerCharacter_player_death"]
 [connection signal="hit" from="HurtBox" to="HurtBox" method="_on_HurtBox_hit"]
 
