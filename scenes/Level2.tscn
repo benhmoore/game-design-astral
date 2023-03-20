@@ -47,8 +47,8 @@ visible = false
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Tile Maps/Colliders" groups=["walls"]]
 polygon = PoolVector2Array( 139, 115, 188, 248, 157, 377, 176, 387, 444, 386, 440, 253, 522, 256, 517, 389, 731, 376, 743, 322, 821, 313, 808, 261, 829, 235, 802, 205, 856, 189, 892, 145, 899, 79, 725, 78, 608, 59, 477, 18, 353, 68 )
 
-[node name="Node2D" parent="Tile Maps" instance=ExtResource( 2 )]
-position = Vector2( 785, 531 )
+[node name="Battery" parent="Tile Maps" instance=ExtResource( 2 )]
+position = Vector2( 763, 601 )
 
 [node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 4 )
@@ -69,3 +69,23 @@ shape = SubResource( 1 )
 position = Vector2( -1, 1.00006 )
 scale = Vector2( 1.66667, 1.70175 )
 texture = ExtResource( 7 )
+
+[node name="Colliders" type="StaticBody2D" parent="." groups=["walls"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Colliders"]
+polygon = PoolVector2Array( 945, 135, 942, 330, 565, 330, 569, 822, 1399, 830, 1402, 335, 1095, 340, 1089, 119, 1922, 118, 1922, -329, 2355, -319, 2364, -377, 2755, -380, 2754, 393, 2559, 400, 2555, 702, 2740, 703, 2750, 1089, 3519, 1089, 3912, 1656, 4086, 1669, 4114, 1730, 4418, 1731, 4416, 1660, 4653, 1660, 4932, 1318, 4935, 1078, 5179, 1091, 5188, 907, 4919, 910, 4911, 801, 4806, 629, 4584, 399, 4484, 406, 4474, 323, 4037, 325, 4011, 407, 3916, 407, 3909, 463, 3720, 488, 3591, 659, 3585, 902, 2874, 900, 2874, 706, 3071, 702, 3068, 396, 2876, 402, 2881, -520, 2366, -488, 2355, -554, 1924, -558, 1925, -1079, 123, -1085, 127, 119, 905, 133, 922, 138, 530, 319, -11, 344, 17, -1347, 2532, -1402, 3318, -135, 3845, 118, 5227, 367, 5548, 1302, 4221, 1940, 2656, 1329, 2123, 427, 1377, 1197, 349, 844, 505, 363, 558, 320, 937, 229, 940, 210, 926, 133 )
+
+[node name="Battery3" parent="." instance=ExtResource( 2 )]
+position = Vector2( 317, 1942 )
+
+[node name="Battery" parent="." instance=ExtResource( 2 )]
+position = Vector2( 217, -907 )
+
+[node name="Battery2" parent="." instance=ExtResource( 2 )]
+position = Vector2( 350, -977 )
+
+[node name="Battery4" parent="." instance=ExtResource( 2 )]
+position = Vector2( 3002, 522 )
+
+[node name="Battery5" parent="." instance=ExtResource( 2 )]
+position = Vector2( 4297, 1624 )

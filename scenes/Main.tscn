@@ -63,10 +63,12 @@ format = 1
 tile_data = PoolIntArray( 262176, 35, 0 )
 
 [node name="Colliders" type="StaticBody2D" parent="Tile Maps" groups=["walls"]]
-visible = false
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Tile Maps/Colliders" groups=["walls"]]
 polygon = PoolVector2Array( 139, 115, 188, 248, 157, 377, 176, 387, 444, 386, 440, 253, 522, 256, 517, 389, 731, 376, 743, 322, 821, 313, 808, 261, 829, 235, 802, 205, 856, 189, 892, 145, 899, 79, 725, 78, 608, 59, 477, 18, 353, 68 )
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Tile Maps/Colliders"]
+polygon = PoolVector2Array( 212, 381, 210, 603, 172, 622, 171, 725, 264, 825, 1089, 836, 1105, 793, 1372, 701, 1383, 263, 1345, 243, 1336, 45, 1142, 47, 1120, 85, 904, 83, 944, -61, 1673, 24, 1398, 1077, -66, 1035, -24, 47 )
 
 [node name="Node2D" parent="Tile Maps" instance=ExtResource( 2 )]
 position = Vector2( 785, 531 )
