@@ -3,7 +3,7 @@ extends KinematicBody2D
 export var ACCELERATION = 300
 export var MAX_SPEED = 50
 export var FRICTION = 200 
-export var WANDER_TARGET_RANGE = 4
+export var WANDER_TARGET_RANGE = 6
 
 enum {
 	IDLE,
@@ -26,7 +26,13 @@ onready var animation_player = $AnimationPlayer
 
 func _ready():
 	state = pick_random_state([IDLE, WANDER])
-
+	add_to_group("enemy")
+	hurtbox.connect("hit", self, "_on_hit")
+	stats.connect("no_health", self, "_on_Stats_no_health")
+	
+func _on_hit():
+	print("Enemy's hurtbox has been hit")
+	
 func _physics_process(delta):
 	knockback = knockback.move_toward(Vector2.ZERO, FRICTION * delta)
 	knockback = move_and_slide(knockback)

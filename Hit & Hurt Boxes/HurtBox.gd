@@ -7,6 +7,15 @@ onready var collision_shape = $CollisionShape2D
 
 signal invincibility_started
 signal invincibility_ended
+signal hit
+
+func _ready():
+	add_to_group("hurtbox")
+
+func _on_HurtBox_area_entered(area):
+	emit_signal("hit")  # Emit the hit signal
+	print("Hurtbox debug")
+
 
 func set_invincible(value):
 	invincible = value

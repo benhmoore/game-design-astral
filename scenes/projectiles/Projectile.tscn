@@ -10,6 +10,8 @@ height = 12.0
 
 [node name="Projectile" type="Area2D" groups=["Projectile"]]
 scale = Vector2( 2, 2 )
+collision_layer = 9
+collision_mask = 9
 script = ExtResource( 1 )
 SPEED = 1250
 hit_particles = ExtResource( 3 )
@@ -23,14 +25,16 @@ shape = SubResource( 1 )
 [node name="FlyAnimation" type="AnimatedSprite" parent="."]
 frames = ExtResource( 2 )
 animation = "projectile.laser"
+frame = 2
 playing = true
 
 [node name="HitAnimation" type="AnimatedSprite" parent="."]
 visible = false
 frames = ExtResource( 2 )
 animation = "projectile.laser.hit"
-frame = 2
+frame = 1
 playing = true
 
+[connection signal="area_entered" from="." to="." method="_on_Projectile_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_Projectile_body_entered"]
 [connection signal="viewport_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_viewport_exited"]
