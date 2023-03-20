@@ -4,11 +4,13 @@ export(int) var SPEED: int = 1500
 export(int) var damage = 10
 export(Vector2) var knockback_vector = Vector2.ZERO
 export(float) var knockback_multiplier = 1.5
-var shooter = null
+var shooter = self
 
 signal hit
 
 export var hit_particles: PackedScene
+export(PackedScene) var EnemyProjectile
+
 
 func _physics_process(delta):
 	var direction = Vector2.RIGHT.rotated(rotation)
@@ -28,25 +30,15 @@ func set_shooter(shooter):
 
 
 func _on_Projectile_body_entered(body: PhysicsBody2D) -> void:
-	if body.is_in_group("enemy"):
-		print("_on_Projectile_body_entered HURTBOX")
-		body.emit_signal("hit", shooter)
+	if body.is_in_group("walls") || body.is_in_group("player"):
+		shooter = self
+		body.emit_signal("hit", damage, shooter)
+		print("Enemy _on_Projectile_body_entered", body)
 		var hit = hit_particles.instance()
 		get_tree().current_scene.add_child(hit)
 		hit.global_transform.origin = global_transform.origin + Vector2(15,0)
 		hit.global_rotation = get_rotation() + PI
 		destroy()
-
-func _on_Projectile_area_entered(area: Area2D) -> void:
-	if area.is_in_group("walls"):
-		knockback_vector = get_knockback_vector()
-		area.emit_signal("hit", shooter)
-		var hit = hit_particles.instance()
-		get_tree().current_scene.add_child(hit)
-		hit.global_transform.origin = global_transform.origin + Vector2(15,0)
-		hit.global_rotation = get_rotation() + PI
-		destroy()
-
 
 
 func _on_VisibilityNotifier2D_viewport_exited(_viewport):

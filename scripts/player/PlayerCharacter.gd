@@ -54,6 +54,11 @@ onready var emote = get_node("EmoteSprite")
 # Used to determine the player's current motion
 var motion = Vector2.ZERO
 
+func _on_hit():
+	print("Player has been hit")
+	damage()
+
+
 func _process(delta:float):
 	""" Updates player health and ammo. """
 
@@ -258,8 +263,10 @@ func shoot(projectile_dir: Vector2 = Vector2.ZERO, deviation_angle = 0):
 	# Simulate recoil by applying a force in the opposite direction of the projectile
 	knockback(projectile_dir, deviation_angle)
 	
+	
 	# Spawn a projectile in the direction of the mouse cursor
 	var projectile = projectile_scene.instance()
+	projectile.shooter = self
 	get_tree().current_scene.add_child(projectile)
 	projectile.global_position = global_position
 

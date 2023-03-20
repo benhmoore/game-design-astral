@@ -1,10 +1,14 @@
 extends KinematicBody2D
 
+const EnemyProjectile = preload("res://scenes/projectiles/EnemyProjectile.tscn")
+
 export var ACCELERATION = 300
 export var MAX_SPEED = 50
 export var FRICTION = 200 
 export var WANDER_TARGET_RANGE = 6
 export(PackedScene) var EnemyDeathParticles
+var shooter = null
+
 
 
 enum {
@@ -26,13 +30,22 @@ onready var soft_collision = $SoftCollision
 onready var wander_controller = $WanderController
 onready var animation_player = $AnimationPlayer
 onready var particles_instance = $EnemyDeathParticles
+onready var ShootingTimer = $ShootingTimer
 
 func _ready():
 	state = pick_random_state([IDLE, WANDER])
 	add_to_group("enemy")
 	hurtbox.connect("hit", self, "_on_hit")
+	ShootingTimer.connect("timeout", self, "_on_ShootingTimer_timeout")
 	stats.connect("no_health", self, "_on_Stats_no_health")
-	
+
+func _on_ShootingTimer_timeout():
+	print("Shooting timer")
+	var player = player_detection_zone.player
+	if player != null:
+		shoot_projectile(player.global_position, self)
+
+
 func _on_hit():
 	print("Enemy's hurtbox has been hit")
 	
@@ -90,11 +103,25 @@ func _on_Stats_no_health():
 	particles_instance.one_shot = true
 	particles_instance.emitting = true
 	queue_free()
+	
+func shoot_projectile(target_position: Vector2, shooter: Node):
+	var projectile_instance = EnemyProjectile.instance()
+	print("shoot_projectile from enemy")
+	get_parent().add_child(projectile_instance)
+	projectile_instance.global_position = global_position
+	projectile_instance.shooter = self
+	projectile_instance.rotation = (target_position - global_position).angle()
 
-func _on_HurtBox_area_entered(area):
-	stats.health -= area.damage
-	knockback = area.knockback_vector * 120
-	hurtbox.start_invincibility(0.4)
+
+func _on_HurtBox_area_entered(area, shooter):
+	print("_on_HurtBox_area_entered NOW by player projectile")
+	if area.damage > 0:
+		if area.shooter.is_in_group("enemy"):
+			return  # Ignore the projectile from the enemy
+		stats.health -= area.damage
+		knockback = area.knockback_vector * 120
+		hurtbox.start_invincibility(0.4)
+
 
 func _on_HurtBox_invincibility_started():
 	animation_player.play("Start")

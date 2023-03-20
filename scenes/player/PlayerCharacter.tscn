@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://assets/shaders/OutlineShader.tres" type="Material" id=1]
 [ext_resource path="res://assets/sounds/battery_collect.wav" type="AudioStream" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://assets/sounds/walk_1.wav" type="AudioStream" id=8]
 [ext_resource path="res://scenes/player/PlayerCamera.tscn" type="PackedScene" id=9]
 [ext_resource path="res://assets/graphics/player/outcast_sprites.png" type="Texture" id=10]
+[ext_resource path="res://Hit & Hurt Boxes/HurtBox.tscn" type="PackedScene" id=11]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 4.14509
@@ -106,6 +107,10 @@ animations = [ {
 "speed": 5.0
 } ]
 
+[sub_resource type="CapsuleShape2D" id=19]
+radius = 7.0
+height = 12.0
+
 [node name="PlayerCharacter" type="KinematicBody2D"]
 scale = Vector2( 3, 3 )
 z_index = 1
@@ -124,6 +129,7 @@ shape = SubResource( 1 )
 stream = ExtResource( 7 )
 
 [node name="FootstepsAudioPlayer" type="AudioStreamPlayer2D" parent="."]
+visible = false
 stream = ExtResource( 8 )
 volume_db = -17.137
 pitch_scale = 0.87
@@ -144,7 +150,7 @@ material = ExtResource( 1 )
 position = Vector2( 25.6667, 26 )
 frames = SubResource( 2 )
 animation = "idle.front.right"
-frame = 2
+frame = 1
 speed_scale = 0.8
 playing = true
 
@@ -154,10 +160,19 @@ volume_db = -27.105
 pitch_scale = 0.8
 
 [node name="EmoteSprite" type="AnimatedSprite" parent="."]
-visible = false
 position = Vector2( 0, -24 )
 scale = Vector2( 0.666667, 0.666667 )
 frames = SubResource( 18 )
 speed_scale = 0.2
 
+[node name="HurtBox" parent="." instance=ExtResource( 11 )]
+collision_layer = 9
+collision_mask = 9
+
+[node name="CollisionShape2D" parent="HurtBox" index="0"]
+shape = SubResource( 19 )
+
 [connection signal="player_death" from="." to="." method="_on_PlayerCharacter_player_death"]
+[connection signal="hit" from="HurtBox" to="HurtBox" method="_on_HurtBox_hit"]
+
+[editable path="HurtBox"]

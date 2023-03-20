@@ -54,7 +54,7 @@ radius = 7.0
 height = 4.0
 
 [sub_resource type="CircleShape2D" id=9]
-radius = 2.75108
+radius = 40.5204
 
 [sub_resource type="CircleShape2D" id=10]
 radius = 4.12311
@@ -119,6 +119,7 @@ material = SubResource( 12 )
 position = Vector2( 0, 15 )
 frames = SubResource( 19 )
 animation = "fly"
+frame = 1
 playing = true
 offset = Vector2( 0, -12 )
 
@@ -131,13 +132,13 @@ scale = Vector2( 0.398079, 0.398079 )
 shape = SubResource( 7 )
 
 [node name="HurtBox" parent="." instance=ExtResource( 3 )]
+visible = false
 collision_layer = 8
 
 [node name="CollisionShape2D" parent="HurtBox" index="0"]
 shape = SubResource( 8 )
 
 [node name="PlayerDetectionZone" parent="." instance=ExtResource( 6 )]
-visible = false
 collision_mask = 1
 
 [node name="CollisionShape2D" parent="PlayerDetectionZone" index="0"]
@@ -147,7 +148,8 @@ shape = SubResource( 9 )
 
 [node name="HitBox" parent="." instance=ExtResource( 7 )]
 visible = false
-collision_mask = 4
+collision_layer = 9
+collision_mask = 9
 
 [node name="CollisionShape2D" parent="HitBox" index="0"]
 position = Vector2( 0, -1 )
@@ -170,6 +172,9 @@ anims/Stop = SubResource( 15 )
 
 [node name="Stats" type="Node" parent="."]
 script = ExtResource( 5 )
+
+[node name="ShootingTimer" type="Timer" parent="."]
+autostart = true
 
 [connection signal="area_entered" from="HurtBox" to="." method="_on_HurtBox_area_entered"]
 [connection signal="invincibility_ended" from="HurtBox" to="." method="_on_HurtBox_invincibility_ended"]
