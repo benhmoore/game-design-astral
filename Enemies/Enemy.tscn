@@ -120,6 +120,7 @@ material = SubResource( 12 )
 position = Vector2( 0, 15 )
 frames = SubResource( 19 )
 animation = "fly"
+frame = 1
 playing = true
 offset = Vector2( 0, -12 )
 
@@ -133,13 +134,15 @@ shape = SubResource( 7 )
 
 [node name="HurtBox" parent="." instance=ExtResource( 3 )]
 visible = false
-collision_layer = 8
+collision_layer = 9
+collision_mask = 9
 
 [node name="CollisionShape2D" parent="HurtBox" index="0"]
 shape = SubResource( 8 )
 
 [node name="PlayerDetectionZone" parent="." instance=ExtResource( 6 )]
-collision_mask = 1
+collision_layer = 9
+collision_mask = 9
 
 [node name="CollisionShape2D" parent="PlayerDetectionZone" index="0"]
 modulate = Color( 1, 1, 1, 0.780392 )
