@@ -1,6 +1,4 @@
-[gd_scene load_steps=2 format=2]
-
-[ext_resource path="res://assets/graphics/fonts/pixel_dynamic_font.tres" type="DynamicFont" id=1]
+[gd_scene format=2]
 
 [node name="MenuButton" type="Button"]
 margin_right = 840.0
@@ -11,7 +9,5 @@ flat = true
 [node name="Label" type="Label" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-custom_fonts/font = ExtResource( 1 )
-text = "Label"
 align = 1
 valign = 1

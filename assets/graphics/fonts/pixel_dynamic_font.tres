@@ -1,7 +1,5 @@
-[gd_resource type="DynamicFont" load_steps=2 format=2]
-
-[ext_resource path="res://assets/graphics/fonts/pixelfont.ttf" type="DynamicFontData" id=1]
+[gd_resource type="DynamicFont" format=2]
 
 [resource]
-size = 36
-font_data = ExtResource( 1 )
+size = 60
+outline_color = Color( 0, 0, 0, 1 )

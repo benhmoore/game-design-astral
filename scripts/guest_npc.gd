@@ -43,7 +43,6 @@ func move(delta):
 	elif position.y <= start_pos.y + 20:
 		position.y = start_pos.y - 19.9
 
-
 func choose(array):
 	array.shuffle()
 	return array.front()
@@ -51,4 +50,3 @@ func choose(array):
 func _on_Timer_timeout():
 	$Timer.wait_time = choose([0.5, 1, 1.5])
 	current_state = choose([IDLE, NEW_DIR, MOVE])
-	
