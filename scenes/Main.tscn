@@ -1,10 +1,35 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://scenes/player/PlayerCharacter.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/pickups/Battery.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/guest_npc/guest_npc.tscn" type="PackedScene" id=3]
 [ext_resource path="res://assets/music/astral-sound.wav" type="AudioStream" id=4]
 [ext_resource path="res://assets/graphics/tilemap.tres" type="TileSet" id=5]
+[ext_resource path="res://assets/graphics/levels/images.png" type="Texture" id=7]
+
+[sub_resource type="GDScript" id=2]
+script/source = "extends Area2D
+
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	print(\"Pad ready\")
+	connect(\"body_entered\", self, \"_on_TeleportPad_area_entered\")
+
+
+func _on_TeleportPad_area_entered(area: Area2D):
+		print(\"Pad entered\")
+		var target_scene = load(\"res://scenes/Level1.tscn\")
+		get_tree().change_scene_to(target_scene)
+"
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 40.4969
 
 [node name="Main" type="Node2D"]
 
@@ -51,32 +76,26 @@ stream = ExtResource( 4 )
 volume_db = -16.314
 autoplay = true
 
-[node name="Battery" parent="." instance=ExtResource( 2 )]
-position = Vector2( 742, 693 )
-
-[node name="Battery2" parent="." instance=ExtResource( 2 )]
-position = Vector2( 660, 600 )
-
-[node name="Battery4" parent="." instance=ExtResource( 2 )]
-position = Vector2( 489, 661 )
-
-[node name="Battery5" parent="." instance=ExtResource( 2 )]
-position = Vector2( 401, 556 )
-
-[node name="Battery6" parent="." instance=ExtResource( 2 )]
-position = Vector2( 1289, 386 )
-
-[node name="Battery7" parent="." instance=ExtResource( 2 )]
-position = Vector2( 1290, 551 )
-
-[node name="Battery8" parent="." instance=ExtResource( 2 )]
-position = Vector2( 1411, 697 )
-
 [node name="Battery9" parent="." instance=ExtResource( 2 )]
-position = Vector2( 1198, 780 )
+position = Vector2( 1161, 471 )
 
 [node name="Battery3" parent="." instance=ExtResource( 2 )]
-position = Vector2( 797, 626 )
+position = Vector2( 388, 625 )
 
 [node name="guest_npc" parent="." instance=ExtResource( 3 )]
 position = Vector2( 944, 356 )
+
+[node name="TeleportLocation" type="Node2D" parent="."]
+
+[node name="TeleportPad" type="Area2D" parent="TeleportLocation"]
+position = Vector2( 800, 0 )
+script = SubResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TeleportLocation/TeleportPad"]
+position = Vector2( 499, 102 )
+shape = SubResource( 1 )
+
+[node name="PortalImage" type="Sprite" parent="TeleportLocation/TeleportPad/CollisionShape2D"]
+position = Vector2( 1.00012, -1.99999 )
+scale = Vector2( 1.66667, 1.70175 )
+texture = ExtResource( 7 )

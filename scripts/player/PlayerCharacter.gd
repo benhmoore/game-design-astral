@@ -1,5 +1,9 @@
 extends KinematicBody2D
 
+func _ready():
+	add_to_group("player")
+	
+	
 # PlayerCharacter signals
 signal health_changed # Emitted whenever heal() or damage() is called
 signal ammo_changed # Emitted whenever ammo is added or removed

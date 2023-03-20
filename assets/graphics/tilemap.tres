@@ -1,8 +1,9 @@
-[gd_resource type="TileSet" load_steps=4 format=2]
+[gd_resource type="TileSet" load_steps=5 format=2]
 
 [ext_resource path="res://assets/graphics/levels/environment-Sheet.png" type="Texture" id=1]
 [ext_resource path="res://assets/graphics/levels/free.png" type="Texture" id=2]
 [ext_resource path="res://assets/graphics/levels/Fence Tile - By EtherealDragon Jul-27-2013.png" type="Texture" id=3]
+[ext_resource path="res://assets/graphics/levels/art.png" type="Texture" id=4]
 
 [resource]
 0/name = "environment-Sheet.png 0"
@@ -861,3 +862,17 @@
 59/shape_one_way_margin = 0.0
 59/shapes = [  ]
 59/z_index = 0
+60/name = "art.png 60"
+60/texture = ExtResource( 4 )
+60/tex_offset = Vector2( 0, 0 )
+60/modulate = Color( 1, 1, 1, 1 )
+60/region = Rect2( 84, 97, 14, 21 )
+60/tile_mode = 0
+60/occluder_offset = Vector2( 0, 0 )
+60/navigation_offset = Vector2( 0, 0 )
+60/shape_offset = Vector2( 0, 0 )
+60/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+60/shape_one_way = false
+60/shape_one_way_margin = 0.0
+60/shapes = [  ]
+60/z_index = 0
