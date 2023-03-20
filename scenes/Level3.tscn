@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scenes/player/PlayerCharacter.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/pickups/Battery.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Enemies/Enemy.tscn" type="PackedScene" id=3]
 [ext_resource path="res://assets/music/astral-sound.wav" type="AudioStream" id=4]
 [ext_resource path="res://assets/graphics/tilemap.tres" type="TileSet" id=5]
 
@@ -75,3 +76,43 @@ position = Vector2( -1264, 2800 )
 
 [node name="Battery7" parent="." instance=ExtResource( 2 )]
 position = Vector2( 575, 2212 )
+
+[node name="Enemy" parent="." instance=ExtResource( 3 )]
+position = Vector2( 2147, 797 )
+scale = Vector2( 3, 3 )
+
+[node name="Enemy2" parent="." instance=ExtResource( 3 )]
+position = Vector2( 2158, 257 )
+scale = Vector2( 3, 3 )
+
+[node name="Enemy3" parent="." instance=ExtResource( 3 )]
+position = Vector2( 3788, 1115 )
+scale = Vector2( 3, 3 )
+
+[node name="Enemy4" parent="." instance=ExtResource( 3 )]
+position = Vector2( 4470, 477 )
+scale = Vector2( 3, 3 )
+
+[node name="Enemy5" parent="." instance=ExtResource( 3 )]
+position = Vector2( 2540, 1806 )
+scale = Vector2( 3, 3 )
+
+[node name="Enemy6" parent="." instance=ExtResource( 3 )]
+position = Vector2( 2683, 3759 )
+scale = Vector2( 3, 3 )
+
+[node name="Enemy7" parent="." instance=ExtResource( 3 )]
+position = Vector2( 1139, 2920 )
+scale = Vector2( 3, 3 )
+
+[node name="Enemy8" parent="." instance=ExtResource( 3 )]
+position = Vector2( 730, 1824 )
+scale = Vector2( 3, 3 )
+
+[node name="Enemy9" parent="." instance=ExtResource( 3 )]
+position = Vector2( 43, 1923 )
+scale = Vector2( 3, 3 )
+
+[node name="Enemy10" parent="." instance=ExtResource( 3 )]
+position = Vector2( -1820, 3764 )
+scale = Vector2( 3, 3 )

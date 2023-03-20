@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://scenes/player/PlayerCharacter.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/pickups/Battery.tscn" type="PackedScene" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://assets/music/astral-sound.wav" type="AudioStream" id=4]
 [ext_resource path="res://assets/graphics/tilemap.tres" type="TileSet" id=5]
 [ext_resource path="res://scenes/TeleportPadLevel2.gd" type="Script" id=6]
+[ext_resource path="res://Enemies/Enemy.tscn" type="PackedScene" id=7]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 40.4969
@@ -93,3 +94,35 @@ polygon = PoolVector2Array( 4052, 3510, 3815, 3515, 3801, 2846, 4076, 2859, 4060
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Colliders3"]
 polygon = PoolVector2Array( 543, 286, 668, 288, 665, 318, 549, 319 )
+
+[node name="Enemy" parent="." instance=ExtResource( 7 )]
+position = Vector2( 1067, 1254 )
+scale = Vector2( 3, 3 )
+
+[node name="Enemy2" parent="." instance=ExtResource( 7 )]
+position = Vector2( 1878, 1855 )
+scale = Vector2( 3, 3 )
+
+[node name="Enemy3" parent="." instance=ExtResource( 7 )]
+position = Vector2( 637, 2210 )
+scale = Vector2( 3, 3 )
+
+[node name="Enemy4" parent="." instance=ExtResource( 7 )]
+position = Vector2( 3069, 2442 )
+scale = Vector2( 3, 3 )
+
+[node name="Enemy5" parent="." instance=ExtResource( 7 )]
+position = Vector2( 4027, 3047 )
+scale = Vector2( 3, 3 )
+
+[node name="Enemy6" parent="." instance=ExtResource( 7 )]
+position = Vector2( 4053, 3297 )
+scale = Vector2( 3, 3 )
+
+[node name="Enemy7" parent="." instance=ExtResource( 7 )]
+position = Vector2( 3929, 1156 )
+scale = Vector2( 3, 3 )
+
+[node name="Enemy8" parent="." instance=ExtResource( 7 )]
+position = Vector2( 5175, 1160 )
+scale = Vector2( 3, 3 )
