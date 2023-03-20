@@ -5,8 +5,11 @@ signal hit
 
 export var hit_particles: PackedScene
 
+onready var bullet_hit_box = $BulletHitBox
+
 func _physics_process(delta):
 	var direction = Vector2.RIGHT.rotated(rotation)
+	bullet_hit_box.knockback_vector = direction
 	global_position += direction * SPEED * delta
 
 func destroy():

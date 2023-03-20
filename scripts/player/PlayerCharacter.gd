@@ -359,6 +359,17 @@ func set_health(new_value):
 	health = min(new_value, 10)
 	emit_signal("health_changed")
 
+func _on_HurtBox_area_entered(area):
+	health -= area.damage
+	var new_health = health
+	set_health(new_health)
 
 func _on_PlayerCharacter_player_death():
+	pass # Replace with function body.
+
+func _on_HurtBox_invincibility_ended():
+	pass # Replace with function body.
+
+
+func _on_HurtBox_invincibility_started():
 	pass # Replace with function body.
