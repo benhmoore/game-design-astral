@@ -12,6 +12,10 @@ A Windows executable is provided here: https://github.com/benhmoore/game-design-
 - Sound effects and music
 - Batteries
 
+## Katelyn Jett
+- Enemy AI for the idle, wander, and chase states
+- Hitboxes and Hurtboxes that look to collision layers
+
 ### [Name]
 - [Contribution]
 
