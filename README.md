@@ -8,11 +8,13 @@ A Windows executable is provided here: https://github.com/benhmoore/game-design-
 ## Member Contributions
 
 ### Ben Moore
-- Player character, camera, and projectile implementation
+- Player character
+- Projectile implementation
+- Camera system
 - Sound effects and music
 - Batteries
 
-## Katelyn Jett
+### Katelyn Jett
 - Enemy AI for the idle, wander, and chase states
 - Hitboxes and Hurtboxes that look to collision layers
 
@@ -22,8 +24,10 @@ A Windows executable is provided here: https://github.com/benhmoore/game-design-
 - Portals
 - Miscellaneous fixes and improvements
 
-### [Name]
-- [Contribution]
+### Michael Hedrick
+- Sprites
+- Character dialogue
+- Level mockups
 
 ## Screenshots
 ![Untitled](/screenshots/1.png)
