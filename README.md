@@ -9,7 +9,7 @@ A Windows executable is provided within the `/executable` directory.
 
 ### Ben Moore
 - Player character and projectile implementation
-- Sound effects
+- Sound effects and music
 - Batteries
 
 ### [Name]
