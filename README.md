@@ -22,11 +22,6 @@ A Windows executable is provided here: https://github.com/benhmoore/game-design-
 - Portals
 - Miscellaneous fixes and improvements
 
-### Caleb Kirkland
-- Made title screen and menu system
-- Implimented companion NPCs and movement
-- Implemented Dialogue UI and lore components of the game
-
 ## Screenshots
 ![Untitled](/screenshots/1.png)
 ![Untitled](/screenshots/2.png)
@@ -41,4 +36,3 @@ A Windows executable is provided here: https://github.com/benhmoore/game-design-
 - [Pixel Art Top Down - Basic by Cainos](https://cainos.itch.io/pixel-art-top-down-basic)
 - [PixelArt Portal](https://imgur.com/gallery/KJLdNn2)
 - [Dialogue Box](https://devworm.itch.io/rpg-art-series-2022)
-- 
