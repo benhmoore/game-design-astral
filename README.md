@@ -11,7 +11,7 @@ A Windows executable is provided here: https://github.com/benhmoore/game-design-
 - Player character, HUD
 - Projectile implementation
 - Camera system
-- Sound effects and music
+- Created sound effects and music
 - Batteries
 
 ### Katelyn Jett
