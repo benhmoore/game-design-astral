@@ -125,3 +125,9 @@ scale = Vector2( 3, 3 )
 
 [node name="guest_npc" parent="." instance=ExtResource( 6 )]
 position = Vector2( -1467, 2578 )
+
+[node name="Battery8" parent="." instance=ExtResource( 2 )]
+position = Vector2( 1049, 551 )
+
+[node name="Battery9" parent="." instance=ExtResource( 2 )]
+position = Vector2( 1045, 547 )

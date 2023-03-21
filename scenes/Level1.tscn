@@ -130,3 +130,12 @@ scale = Vector2( 3, 3 )
 [node name="Enemy8" parent="." instance=ExtResource( 7 )]
 position = Vector2( 5175, 1160 )
 scale = Vector2( 3, 3 )
+
+[node name="Battery5" parent="." instance=ExtResource( 2 )]
+position = Vector2( 639, 400 )
+
+[node name="Battery6" parent="." instance=ExtResource( 2 )]
+position = Vector2( 638, 403 )
+
+[node name="Battery7" parent="." instance=ExtResource( 2 )]
+position = Vector2( 638, 402 )
