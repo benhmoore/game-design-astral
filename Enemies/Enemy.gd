@@ -31,6 +31,7 @@ onready var wander_controller = $WanderController
 onready var animation_player = $AnimationPlayer
 onready var particles_instance = $EnemyDeathParticles
 onready var ShootingTimer = $ShootingTimer
+onready var battery = preload("res://scenes/pickups/Battery.tscn")
 
 func _ready():
 	state = pick_random_state([IDLE, WANDER])
@@ -104,6 +105,11 @@ func _on_Stats_no_health():
 	particles_instance.global_position = global_position
 	particles_instance.one_shot = true
 	particles_instance.emitting = true
+	
+	# Spawn a battery on death
+	var new_battery = battery.instance()
+	get_tree().current_scene.add_child(new_battery)
+	new_battery.global_position = global_position
 	queue_free()
 	
 func shoot_projectile(target_position: Vector2, shooter: Node):
