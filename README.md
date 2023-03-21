@@ -29,6 +29,11 @@ A Windows executable is provided here: https://github.com/benhmoore/game-design-
 - Character dialogue
 - Level mockups
 
+### Caleb Kirkland
+- Created title screen and menu system
+- Implemented companion NPC's and movement
+- Implemented Dialogue UI and lore components
+
 ## Screenshots
 ![Untitled](/screenshots/1.png)
 ![Untitled](/screenshots/2.png)
@@ -42,3 +47,4 @@ A Windows executable is provided here: https://github.com/benhmoore/game-design-
 - [Kenney UI Audio](https://godotengine.org/asset-library/asset/795)
 - [Pixel Art Top Down - Basic by Cainos](https://cainos.itch.io/pixel-art-top-down-basic)
 - [PixelArt Portal](https://imgur.com/gallery/KJLdNn2)
+- [Dialogue Box](https://devworm.itch.io/rpg-art-series-2022)
