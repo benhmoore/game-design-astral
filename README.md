@@ -8,7 +8,7 @@ A Windows executable is provided here: https://github.com/benhmoore/game-design-
 ## Member Contributions
 
 ### Ben Moore
-- Player character
+- Player character, HUD
 - Projectile implementation
 - Camera system
 - Sound effects and music
