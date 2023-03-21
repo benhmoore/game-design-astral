@@ -3,7 +3,7 @@
 ----
 
 ## Installation
-A Windows executable is provided within the `/executable` directory.
+A Windows executable is provided here: https://github.com/benhmoore/game-design-astral/releases/tag/beta
 
 ## Member Contributions
 
